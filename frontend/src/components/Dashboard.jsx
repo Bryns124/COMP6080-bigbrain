@@ -1,8 +1,10 @@
-import React from "react"
-
+import React from 'react';
+import '../styles/Dashboard.css';
 function Dashboard () {
   return (
-    <>Dashboard!</>
+    <div className='BodyStyle'>
+      Dashboard!
+    </div>
   )
 }
 
