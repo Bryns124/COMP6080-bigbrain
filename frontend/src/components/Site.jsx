@@ -18,16 +18,18 @@ function Site ({ setToken }) {
                     <div style={ { display: 'flex', justifyContent: 'space-between' } }>
                         <img src={logo} style={ { width: 100, height: 40 } } alt="BigBrain Logo" />
 
-                        {!['/signup', '/signin'].includes(location.pathname)
-                          ? <>
-                                <Link to="/signin" onClick={logout}>Logout</Link>
-                                </>
-                          : <>
-                                <Link to="/signup" onClick={() => navigate('signup')}>Sign Up</Link>
-                                &nbsp;|&nbsp;
-                                <Link to="/signin" onClick={() => navigate('signin')}>Sign In</Link>
-                                </>
-                            }
+                        <div style={ { display: 'flex' } }>
+                          {!['/signup', '/signin'].includes(location.pathname)
+                            ? <>
+                                  <Link to="/signin" onClick={logout}>Logout</Link>
+                                  </>
+                            : <>
+                                  <Link to="/signup" onClick={() => navigate('signup')}>Sign Up</Link>
+                                  &nbsp;|&nbsp;
+                                  <Link to="/signin" onClick={() => navigate('signin')}>Sign In</Link>
+                                  </>
+                              }
+                        </div>
                     </div>
                 </nav>
             <hr />
