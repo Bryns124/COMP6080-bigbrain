@@ -1,3 +1,22 @@
 .BodyStyle{
     background-color: #F9E3CE;
+    width: 100%;
+}
+
+.InnerBody{
+    display: flex;
+    padding-top: 2rem;
+    padding-bottom: 5.5rem;
+    box-sizing: border-box;
+    min-width: 0px;
+    margin: 0px auto;
+    width: 100%;
+    max-width: 1280px;
+    flex-wrap: nowrap;
+    height: fit-content;
+    min-height: 100vh;
+}
+
+.QuizContainer{
+    margin-right: 12px;
 }
