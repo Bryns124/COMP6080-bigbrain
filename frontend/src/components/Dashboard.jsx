@@ -61,13 +61,6 @@ function Dashboard ({ token }) {
                 )
               }
               <img src={bigbrainLogo} alt="bigbrain add quiz img" />
-              {
-                allQuizes.map(q => (
-                  <>
-                    <b>{q.name}</b><br />
-                  </>
-                ))
-              }
             </div>
           </div>
         </div>

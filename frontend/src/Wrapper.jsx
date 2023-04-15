@@ -6,10 +6,9 @@ import Site from './/components/Site'
 
 import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
 function Wrapper () {
-  const [token, setToken] = React.useState(null)
   const navigate = useNavigate()
   const location = useLocation()
-  // const [token, setToken] = React.useState(localStorage.getItem('token'))
+  const [token, setToken] = React.useState(localStorage.getItem('token'))
 
   function manageTokenSet (token) {
     setToken(token);
@@ -17,15 +16,17 @@ function Wrapper () {
   }
 
   React.useEffect(() => {
-    if (localStorage.getItem('token')) {
+    if (localStorage.getItem('token') !== 'undefined' && localStorage.getItem('token') !== null) {
+      console.log(localStorage.getItem('token'))
       setToken(localStorage.getItem('token'));
       if (['/signup', '/signin'].includes(location.pathname)) {
         navigate('/dashboard')
-      }
-    } else {
-      if (!['/signup', '/signin'].includes(location.pathname)) {
+      } else {
         navigate('/signin');
       }
+    } else {
+      navigate('/signin');
+      localStorage.removeItem('token');
     }
   }, []);
   return (
