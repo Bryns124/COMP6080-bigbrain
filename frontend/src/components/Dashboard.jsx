@@ -9,7 +9,7 @@ function Dashboard ({ token }) {
   const [allQuizzes, setAllQuizzes] = React.useState([]);
   const [editQuizBool, setEditQuizBool] = React.useState(false);
   const [editQuizName, setQuizName] = React.useState('');
-  const [editQuizQuestions, setQuizQuestions] = React.useState([]);
+  // const [editQuizQuestions, setQuizQuestions] = React.useState([]);
   const [displayQuizQuestions, setDisplayQuizQuestions] = React.useState([]);
   // const [deleteQuizBool, setDeleteQuizBool] = React.useState(false);
   const [imgUrl, setImgUrl] = React.useState('');
@@ -62,11 +62,11 @@ function Dashboard ({ token }) {
       body: JSON.stringify({
         name: editQuizName,
         thumbnail: imgUrl,
-        questions: editQuizQuestions
-        // questions: [{
-        //   question: 'asljdhaskjd',
-        //   questionType: 'single'
-        // }]
+        // questions: editQuizQuestions
+        questions: [{
+          question: 'What',
+          questionType: 'single'
+        }]
       })
     });
     const data = await response.json();

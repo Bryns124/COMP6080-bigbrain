@@ -65,7 +65,7 @@ function SignIn ({ onSuccess }) {
         <section style={sectionStyle}>
           <h2 style={ { textAlign: 'center', lineHeight: '140%' } }>Log In</h2>
           <div style={ { width: '100%', display: 'flex', flexDirection: 'column' } }>
-            <form style={ { margin: '1.5rem 0px' } }>
+            <form style={ { margin: '1.5rem 0px' } } data-testid="login-form">
               <label>Email</label>
               <br />
               <input value={email} onChange={(e) => setEmail(e.target.value)} style={ { width: '100%', minHeight: '2.75rem' } }/><br />
