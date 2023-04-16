@@ -1,27 +1,30 @@
 import React from 'react';
-// import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
+import AddQuiz from './AddQuiz';
+import EditQuiz from './EditQuiz';
 import '../styles/Dashboard.css';
 import bigbrainLogo from '../assets/bigbrain_add_quiz_img.svg'
 function Dashboard ({ token }) {
-  const [addQuiz, setAddQuiz] = React.useState('');
+  const navigate = useNavigate();
   const [quizBool, setQuizBool] = React.useState(false);
   const [allQuizzes, setAllQuizzes] = React.useState([]);
   const [editQuizBool, setEditQuizBool] = React.useState(false);
-  const [editQuizName, setQuizName] = React.useState('');
-  // const [editQuizQuestions, setQuizQuestions] = React.useState([]);
-  const [displayQuizQuestions, setDisplayQuizQuestions] = React.useState([]);
-  // const [deleteQuizBool, setDeleteQuizBool] = React.useState(false);
-  const [imgUrl, setImgUrl] = React.useState('');
 
+  // const [deleteQuizBool, setDeleteQuizBool] = React.useState(false);
+  // const ques = {
+  //   'question_type': question_type,
+  //   'question_name': question_name,
+  //   'time_limit': time_limit,
+  //   'points': points,
+  //   'options': options,
+  //   'question_image': question_image ,
+  //   'correct_options': (question_type === 'multiple_Choice' ? multiple_correct : single_ccorrect)
+  // }
   // const navigate = useNavigate();
   // const location = useLocation();
 
-  const displayQuestions = () => {
-    setDisplayQuizQuestions(displayQuizQuestions)
-  }
-
-  const getQuizes = async () => {
+  async function getQuizes () {
     const response = await fetch('http://localhost:5005/admin/quiz', {
       method: 'GET',
       headers: {
@@ -35,45 +38,6 @@ function Dashboard ({ token }) {
   React.useEffect(async () => {
     await getQuizes();
   }, [quizBool]);
-
-  const addNewQuiz = async () => {
-    const response = await fetch('http://localhost:5005/admin/quiz/new', {
-      method: 'POST',
-      headers: {
-        'content-type': 'application/json',
-        Authorization: `Bearer ${token}`
-      },
-      body: JSON.stringify({
-        name: addQuiz
-      })
-    });
-    const data = await response.json();
-    console.log(data);
-    await getQuizes();
-  }
-
-  const editQuiz = async (id) => {
-    const response = await fetch(`http://localhost:5005/admin/quiz/${id}`, {
-      method: 'PUT',
-      headers: {
-        'content-type': 'application/json',
-        Authorization: `Bearer ${token}`
-      },
-      body: JSON.stringify({
-        name: editQuizName,
-        thumbnail: imgUrl,
-        // questions: editQuizQuestions
-        questions: [{
-          question: 'What',
-          questionType: 'single'
-        }]
-      })
-    });
-    const data = await response.json();
-    console.log('editquiz id: ', id);
-    console.log('editquiz data: ', data);
-    await getQuizes();
-  }
 
   React.useEffect(async () => {
     await getQuizes();
@@ -97,6 +61,15 @@ function Dashboard ({ token }) {
     await getQuizes();
   }, []);
 
+  const navAdd = () => {
+    setQuizBool(!quizBool);
+    navigate('creator');
+  }
+  const navEdit = () => {
+    setEditQuizBool(!editQuizBool)
+    navigate('edit-quiz');
+  }
+
   return (
     <div className='BodyStyle'>
       <h3>Dashboard!</h3>
@@ -105,25 +78,10 @@ function Dashboard ({ token }) {
           <div style={ { verticalAlign: 'baseline', display: 'flex' } }>
             <div className='QuizContainer'>
               <img src={bigbrainLogo} alt="bigbrain add quiz img" />
-                <button onClick={() => { setQuizBool(!quizBool) }}>
-                  {quizBool
-                    ? 'Back to Dashboard'
-                    : <div>
-                        <span>+</span>
-                      </div>
-                  }
+                <button onClick={navAdd}>
+                  +
                 </button>
-                {
-                  quizBool && (
-                    <>
-                      <br />
-                      Create your new quiz here! <br />
-                      <label>Name</label>
-                      <input type="text" value={addQuiz} onChange={val => setAddQuiz(val.target.value)} />
-                      <button onClick={addNewQuiz}>Create Quiz</button>
-                    </>
-                  )
-                }
+                { quizBool && <AddQuiz token={token}/>}
             </div>
             <div>
             {
@@ -133,33 +91,12 @@ function Dashboard ({ token }) {
                       <div style={ { padding: '20px' } }>
                         <b>{q.name}</b><br />
                         <b>{q.questions} questions</b><br />
-                        <b>{q.thumbnail}</b><br />
                         <b>10 minutes</b><br />
-                        <button onClick={ () => { setEditQuizBool(!editQuizBool) } }>
-                          {
-                            editQuizBool
-                              ? 'Back to Dashboard'
-                              : <div>
-                                  <span>Edit</span>
-                                </div>
-                          }
+                        <button onClick={navEdit}>
+                          Edit
                         </button>
                         {
-                          editQuizBool && (
-                            <>
-                              <br />
-                              <label>Name</label>
-                              <input type="text" value={editQuizName} onChange={val => setQuizName(val.target.value)}/>
-                              <br />
-                              <label>Thumbnail</label>
-                              <input type="button" value={imgUrl} onChange={val => setImgUrl(val.target.value)} placeholder="Choose File"/>
-                              <button onClick={() => editQuiz(q.id)}>Create Question</button>
-                              <br />
-                              <button onClick={displayQuestions}>Show Questions</button>
-                              <p>{displayQuizQuestions}</p>
-                              <br />
-                            </>
-                          )
+                          editQuizBool && <EditQuiz id={q.id} token={token}/>
                         }
                       </div>
                       <div>
