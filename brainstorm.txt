@@ -1,0 +1,10 @@
+{
+  question: string,
+  questiontype: radio or select. singlechoice, multi choice
+  timelimit/duration: integer, form number type for input 
+  points: integer, form number type
+  URL for video: string or photo: base64 from ass3
+  answers: array of answers in backend, frontend is bunch of text inputs for possible answers
+}
+
+response for question would be the structure and get the response for question

@@ -13,13 +13,14 @@ function Wrapper () {
   function manageTokenSet (token) {
     setToken(token);
     localStorage.setItem('token', token);
+    navigate('/dashboard')
   }
 
   React.useEffect(() => {
     if (localStorage.getItem('token') !== 'undefined' && localStorage.getItem('token') !== null) {
-      console.log(localStorage.getItem('token'))
       setToken(localStorage.getItem('token'));
       if (['/signup', '/signin'].includes(location.pathname)) {
+        console.log(location.pathname);
         navigate('/dashboard')
       } else {
         navigate('/signin');

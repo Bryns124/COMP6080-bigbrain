@@ -39,7 +39,8 @@ function SignUp ({ onSuccess }) {
     WebkitBoxPack: 'center',
 
   }
-  async function register () {
+  async function register (e) {
+    e.preventDefault()
     const response = await fetch('http://localhost:5005/admin/auth/register', {
       method: 'POST',
       headers: {
@@ -52,8 +53,12 @@ function SignUp ({ onSuccess }) {
       })
     });
     const data = await response.json()
-    console.log(data.token)
-    onSuccess(data.token)
+    if (data.error) {
+      alert(data.error)
+    } else {
+      console.log(data.token)
+      onSuccess(data.token)
+    }
   }
 
   return (
