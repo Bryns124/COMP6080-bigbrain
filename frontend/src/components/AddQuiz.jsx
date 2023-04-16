@@ -17,7 +17,7 @@ function AddQuiz ({ token }) {
     });
     const data = await response.json();
     console.log(data);
-    await Dashboard.getQuizes();
+    await Dashboard.getQuizzes();
   }
   function returnFunc () {
     addNewQuiz();

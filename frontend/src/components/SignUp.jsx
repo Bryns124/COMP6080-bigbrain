@@ -1,6 +1,6 @@
 import React from 'react';
 
-function SignUp ({ onClick, onSuccess }) {
+function SignUp ({ onSuccess }) {
   const [email, setEmail] = React.useState('')
   const [password, setPassword] = React.useState('')
   const [name, setName] = React.useState('')

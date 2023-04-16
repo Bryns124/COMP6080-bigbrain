@@ -24,7 +24,18 @@ function Dashboard ({ token }) {
   // const navigate = useNavigate();
   // const location = useLocation();
 
-  async function getQuizes () {
+  // const logout = async () => {
+  //   const response = await fetch('http://localhost:5005/admin/auth/logout', {
+  //     method: 'POST',
+  //     headers: {
+  //       'content-type': 'application/json',
+  //       Authorization: `Bearer ${token}`
+  //     }
+  //   });
+  //   const data = await response.json();
+  // }
+
+  async function getQuizzes () {
     const response = await fetch('http://localhost:5005/admin/quiz', {
       method: 'GET',
       headers: {
@@ -36,12 +47,28 @@ function Dashboard ({ token }) {
     setAllQuizzes(data);
   }
   React.useEffect(async () => {
-    await getQuizes();
+    await getQuizzes();
   }, [quizBool]);
 
   React.useEffect(async () => {
-    await getQuizes();
+    await getQuizzes();
   }, [editQuizBool]);
+
+  // const getQuizInfo = async () => {
+  //   const response = await fetch(`http://localhost:5005/admin/quiz/${quizID}`, {
+  //     method: 'GET',
+  //     headers: {
+  //       'content-type': 'application/json',
+  //       Authorization: `Bearer ${token}`
+  //     }
+  //   });
+  //   const data = await response.json();
+  //   console.log(data);
+  // }
+
+  // React.useEffect(async () => {
+  //   await getQuizInfo()
+  // }, []);
 
   const deleteQuiz = async (id) => {
     const response = await fetch(`http://localhost:5005/admin/quiz/${id}`, {
@@ -52,13 +79,12 @@ function Dashboard ({ token }) {
       }
     });
     const data = await response.json();
-    console.log('deletequiz id: ', id);
-    console.log('deletequiz data: ', data);
-    await getQuizes();
+    console.log(data)
+    await getQuizzes();
   }
 
   React.useEffect(async () => {
-    await getQuizes();
+    await getQuizzes();
   }, []);
 
   const navAdd = () => {
@@ -67,7 +93,6 @@ function Dashboard ({ token }) {
   }
   const navEdit = () => {
     setEditQuizBool(!editQuizBool)
-    navigate('edit-quiz');
   }
 
   return (
@@ -92,11 +117,14 @@ function Dashboard ({ token }) {
                         <b>{q.name}</b><br />
                         <b>{q.questions} questions</b><br />
                         <b>10 minutes</b><br />
-                        <button onClick={navEdit}>
+                        <button onClick={() => {
+                          navEdit()
+                          navigate(`edit-quiz/${q.id}`);
+                        }}>
                           Edit
                         </button>
                         {
-                          editQuizBool && <EditQuiz id={q.id} token={token}/>
+                          editQuizBool && <EditQuiz token={token}/>
                         }
                       </div>
                       <div>

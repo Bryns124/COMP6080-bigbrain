@@ -1,11 +1,13 @@
 import React from 'react';
 import { useLocation, useNavigate, Outlet, Link } from 'react-router-dom';
+// import { logoutReq } from './Dashboard';
 
 import logo from '../assets/logo.svg'
 function Site ({ setToken }) {
   const navigate = useNavigate();
   const location = useLocation();
   function logout () {
+    // logoutReq();
     setToken(null);
     localStorage.removeItem('token');
     navigate('/signin');

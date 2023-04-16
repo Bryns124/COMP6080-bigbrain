@@ -22,12 +22,11 @@ function Wrapper () {
     if (localStorage.getItem('token') !== 'undefined' && localStorage.getItem('token') !== null) {
       setToken(localStorage.getItem('token'));
       if (['/signup', '/signin', '/dashboard/creator'].includes(location.pathname)) {
-        console.log(location.pathname);
         navigate('/dashboard')
       } else if (['/dashboard/creator'].includes(location.pathname)) {
         navigate('/creator');
-      } else if (['/dashboard/edit-quiz'].includes(location.pathname)) {
-        navigate('/edit-quiz');
+      } else if (['/dashboard/edit-quiz/:quizID'].includes(location.pathname)) {
+        navigate('/edit-quiz/:quizID');
       } else {
         navigate('/signin');
       }
@@ -42,7 +41,7 @@ function Wrapper () {
         <Route path='/' element={<Site setToken = {setToken}/>}>
           <Route path='/dashboard' element= {<Dashboard token={token}/>}/>
           <Route path='/dashboard/creator' element= {<AddQuiz token={token}/>}/>
-          <Route path='/dashboard/edit-quiz' element= {<EditQuiz token={token}/>}/>
+          <Route path='/dashboard/edit-quiz/:quizID' element= {<EditQuiz token={token}/>}/>
           <Route path='/signup' element= {<SignUp onSuccess={manageTokenSet} />}/>
           <Route path='/signin' element= {<SignIn onSuccess={manageTokenSet} />}/>
         </Route>
