@@ -9,8 +9,32 @@ function EditQuiz ({ token }) {
   const navigate = useNavigate();
   const [editQuizName, setQuizName] = React.useState('');
   const [imgUrl, setImgUrl] = React.useState({ file: null, preview: '' });
-  const [editQuizQuestions, setQuizQuestions] = React.useState([]);
-
+  // const [editQuizQuestions, setQuizQuestions] = React.useState([{}])
+  // const [editQuizQuestions, setQuizQuestions] = React.useState(JSON.stringify[{
+  //   questionType: 'MC',
+  //   question: 'Are Elephants big?',
+  //   duration: '10',
+  //   options: {
+  //     option1: 'Yes',
+  //     option2: 'NO'
+  //   },
+  //   points: parseInt(2),
+  //   correct: 'Yes',
+  //   questionImg: ''
+  // }]);
+  // const options = {
+  //   option1: 'Yes',
+  //   option2: 'No'
+  // }
+  const editQuizQuestions = {
+    questionType: 'MC',
+    question: 'Are Elephants big?',
+    duration: '10',
+    options: ['yes', 'no'],
+    points: parseInt(2),
+    correct: 'Yes',
+    questionImg: ''
+  }
   const getQuizInfo = async () => {
     const response = await fetch(`http://localhost:5005/admin/quiz/${quizID}`, {
       method: 'GET',
@@ -27,7 +51,7 @@ function EditQuiz ({ token }) {
     getQuizInfo().then((data) => {
       console.log(data)
       console.log(data.questions)
-      setQuizQuestions(data.questions)
+      // setQuizQuestions(data.questions)
     })
   }, []);
 
@@ -64,23 +88,29 @@ function EditQuiz ({ token }) {
     <div className='BodyStyle'>
       <div className='InnerBody'>
         <div className="MainContainer">
-          <label><b>Change Quiz Title</b> </label>
-          <input type="text" value={editQuizName} onChange={val => setQuizName(val.target.value)}/>
-          <br />
-          <label><b>Change Cover Image for Quiz</b></label>
-          <input type="file" onChange={handleImgChange} title="Choose File"/>
-          <br />
-          <label>Questions</label>
-          <br />
+          <div className="FieldsContainer">
+            <label><b>Change Quiz Title</b> </label>
+            <br />
+            <input type="text" value={editQuizName} onChange={val => setQuizName(val.target.value)}/>
+            <br />
+            <label><b>Change Cover Image for Quiz</b></label>
+            <input type="file" onChange={handleImgChange} title="Choose File"/>
+            <br />
+            <label>Questions</label>
+            <button>Add Question</button>
+            <br />
+            {/* </ul> */}
+            <button onClick={() => editQuiz()}>Update Quiz</button>
+            <br />
+            {/* <input type="text" value={editQuizQuestions} onChange={val => setQuizQuestions(val.target.value)}/> */}
+            <br />
+          </div>
+        </div>
+        <div>
           {/* <ul> */}
-            {editQuizQuestions.map((question) => (
-              <p key={question.num}>{question.question}</p>
-            ))}
-          {/* </ul> */}
-          <button onClick={() => editQuiz()}>Create Question</button>
-          <br />
-          <input type="text" value={editQuizQuestions} onChange={val => setQuizQuestions(val.target.value)}/>
-          <br />
+          {Object.keys(editQuizQuestions).map((question) => (
+              <p key={question}>{editQuizQuestions[question]}</p>
+          ))}
         </div>
       </div>
     </div>
