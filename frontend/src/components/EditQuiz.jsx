@@ -26,7 +26,7 @@ function EditQuiz ({ token }) {
   //   option1: 'Yes',
   //   option2: 'No'
   // }
-  const editQuizQuestions = {
+  const editQuizQuestions = [{
     questionType: 'MC',
     question: 'Are Elephants big?',
     duration: '10',
@@ -34,7 +34,15 @@ function EditQuiz ({ token }) {
     points: parseInt(2),
     correct: 'Yes',
     questionImg: ''
-  }
+  }, {
+    questionType: 'MC',
+    question: 'Are Elephants big?',
+    duration: '10',
+    options: ['yes', 'no'],
+    points: parseInt(2),
+    correct: 'Yes',
+    questionImg: ''
+  }]
   const getQuizInfo = async () => {
     const response = await fetch(`http://localhost:5005/admin/quiz/${quizID}`, {
       method: 'GET',
@@ -107,10 +115,17 @@ function EditQuiz ({ token }) {
           </div>
         </div>
         <div>
-          {/* <ul> */}
-          {Object.keys(editQuizQuestions).map((question) => (
+          {/* {Object.keys(editQuizQuestions).map((question) => (
               <p key={question}>{editQuizQuestions[question]}</p>
-          ))}
+          ))} */}
+          {
+            editQuizQuestions.map(que => (
+              <div key={que.questionType}>
+                <p>{que.question}</p>
+                <p>{que.options}</p>
+              </div>
+            ))
+          }
         </div>
       </div>
     </div>
