@@ -99,47 +99,57 @@ function Dashboard ({ token }) {
     <div className='BodyStyle'>
       <h3>Dashboard!</h3>
       <div className='InnerBody'>
-        <div style={ { verticalAlign: 'baseline' } }>
-          <div style={ { verticalAlign: 'baseline', display: 'flex' } }>
-            <div className='QuizContainer'>
-              <img src={bigbrainLogo} alt="bigbrain add quiz img" />
-                <button onClick={navAdd}>
-                  +
-                </button>
-                { quizBool && <AddQuiz token={token}/>}
+        <div style={ { verticalAlign: 'baseline', display: 'flex' } }>
+            <div>
+              <div className='AddQuizContainer'>
+                <div style={ { display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '10px' } }>
+                  <img src={bigbrainLogo} alt="bigbrain add quiz img" />
+                </div>
+                <div style={ { display: 'flex', alignItems: 'center', justifyContent: 'center' } }>
+                  <button className='AddQuizBtn' onClick={navAdd}>
+                      +
+                  </button>
+                </div>
+                <div>
+                  <h2>Create New Quiz</h2>
+                </div>
+                  { quizBool && <AddQuiz token={token}/>}
+              </div>
             </div>
+          <div style={ { verticalAlign: 'baseline', display: 'flex' } }>
             <div>
             {
                 allQuizzes?.quizzes?.length > 0 && (allQuizzes?.quizzes?.map(q => (
                   <>
-                    <div className='QuizContainer'>
-                      <div style={ { padding: '20px' } }>
-                        <b>{q.name}</b><br />
-                        <b>{q.questions} questions</b><br />
-                        <b>10 minutes</b><br />
-                        <button onClick={() => {
-                          navEdit()
-                          navigate(`edit-quiz/${q.id}`);
-                        }}>
-                          Edit
-                        </button>
-                        {
-                          editQuizBool && <EditQuiz token={token}/>
-                        }
-                      </div>
-                      <div>
-                      <button onClick={ () => deleteQuiz(q.id) }>Delete</button>
-                      </div>
-                      <div>
-                        {
-                          q.thumbnail != null
-                            ? <div style={ { padding: '20px' } }>
-                                <img src={q.thumbnail} alt="thumbnail" />
-                              </div>
-                            : <div style={ { padding: '20px' } }>
-                                <img src={bigbrainLogo} alt="thumbnail" />
-                              </div>
-                        }
+                    <div style={ { padding: '10px' } }>
+                      <div className='QuizContainer'>
+                        <div style={ { width: '100%', maxHeight: '120px' } }>
+                            {
+                              q.thumbnail != null
+                                ? <div style={ { width: '100%', maxHeight: '120px' } }>
+                                    <img src={q.thumbnail} alt="thumbnail" className='QuizImgContainer'/>
+                                  </div>
+                                : <div style={ { width: '100%', maxHeight: '120px' } }>
+                                    <img src={bigbrainLogo} alt="thumbnail" className='QuizImgContainer'/>
+                                  </div>
+                            }
+                          </div>
+                        <div className='QuizContent'>
+                          <br />
+                          <b>{q.name}</b><br />
+                          <button onClick={() => {
+                            navEdit()
+                            navigate(`edit-quiz/${q.id}`);
+                          }}>
+                            Edit
+                          </button>
+                          {
+                            editQuizBool && <EditQuiz token={token}/>
+                          }
+                        </div>
+                        <div>
+                        <button onClick={ () => deleteQuiz(q.id) }>Delete</button>
+                        </div>
                       </div>
                     </div>
                   </>
