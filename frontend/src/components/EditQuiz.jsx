@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-
+import '../styles/EditQuiz.css'
 // import Dashboard from './Dashboard';
 
 function EditQuiz ({ token }) {
@@ -61,27 +61,28 @@ function EditQuiz ({ token }) {
     reader.readAsDataURL(selectedFile)
   }
   return (
-    <div>
-      <>
-        <br />
-        <label>Name: </label>
-        <input type="text" value={editQuizName} onChange={val => setQuizName(val.target.value)}/>
-        <br />
-        <label>Thumbnail: </label>
-        <input type="file" onChange={handleImgChange} title="Choose File"/>
-        <br />
-        <label>Questions</label>
-        <br />
-        {/* <ul> */}
-          {editQuizQuestions.map((question) => (
-            <p key={question.num}>{question.question}</p>
-          ))}
-        {/* </ul> */}
-        <button onClick={() => editQuiz()}>Create Question</button>
-        <br />
-        <input type="text" value={editQuizQuestions} onChange={val => setQuizQuestions(val.target.value)}/>
-        <br />
-      </>
+    <div className='BodyStyle'>
+      <div className='InnerBody'>
+        <div className="MainContainer">
+          <label><b>Change Quiz Title</b> </label>
+          <input type="text" value={editQuizName} onChange={val => setQuizName(val.target.value)}/>
+          <br />
+          <label><b>Change Cover Image for Quiz</b></label>
+          <input type="file" onChange={handleImgChange} title="Choose File"/>
+          <br />
+          <label>Questions</label>
+          <br />
+          {/* <ul> */}
+            {editQuizQuestions.map((question) => (
+              <p key={question.num}>{question.question}</p>
+            ))}
+          {/* </ul> */}
+          <button onClick={() => editQuiz()}>Create Question</button>
+          <br />
+          <input type="text" value={editQuizQuestions} onChange={val => setQuizQuestions(val.target.value)}/>
+          <br />
+        </div>
+      </div>
     </div>
   )
 }

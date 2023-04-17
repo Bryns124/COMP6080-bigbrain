@@ -5,7 +5,6 @@
 
 .InnerBody{
   display: flex;
-  flex-direction: column;
   padding-top: 2rem;
   padding-bottom: 5.5rem;
   box-sizing: border-box;

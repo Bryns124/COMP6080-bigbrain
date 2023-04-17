@@ -135,9 +135,8 @@ function Dashboard ({ token }) {
                             }
                           </div>
                         <div className='QuizContent'>
+                          <br />
                           <b>{q.name}</b><br />
-                          <b>{q.questions} questions</b><br />
-                          <b>10 minutes</b><br />
                           <button onClick={() => {
                             navEdit()
                             navigate(`edit-quiz/${q.id}`);
