@@ -64,7 +64,7 @@ function EditQuiz ({ token }) {
         <br />
         {/* <ul> */}
           {editQuizQuestions.map((question) => (
-            <p key={question.num}>{question.question}</p>
+            <p key={question.num}>{question.num}: {question.question}</p>
           ))}
         {/* </ul> */}
         <button onClick={() => editQuiz()}>Create Question</button>
