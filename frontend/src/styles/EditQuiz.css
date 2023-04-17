@@ -5,6 +5,7 @@
 
 .InnerBody{
   display: flex;
+  flex-direction: row;
   padding-top: 2rem;
   padding-bottom: 5.5rem;
   box-sizing: border-box;
@@ -12,7 +13,6 @@
   margin: 0px auto;
   width: 100%;
   max-width: 1280px;
-  flex-wrap: nowrap;
   height: fit-content;
   min-height: 100vh;
 }
@@ -34,6 +34,6 @@
   padding: 10px;
 }
 
-.hide {
+.AddQuestionContainer{
   display: none;
 }
