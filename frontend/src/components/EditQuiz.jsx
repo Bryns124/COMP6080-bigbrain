@@ -1,15 +1,14 @@
 import React from 'react';
-// import { useNavigate, useParams } from 'react-router-dom';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 // import Dashboard from './Dashboard';
 
 function EditQuiz ({ token }) {
   const quizID = useParams().quizID;
   console.log(quizID)
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   const [editQuizName, setQuizName] = React.useState('');
-  const [imgUrl, setImgUrl] = React.useState();
+  const [imgUrl, setImgUrl] = React.useState({ file: null, preview: '' });
   const [editQuizQuestions, setQuizQuestions] = React.useState([]);
 
   const getQuizInfo = async () => {
@@ -41,14 +40,25 @@ function EditQuiz ({ token }) {
       },
       body: JSON.stringify({
         name: editQuizName,
-        thumbnail: imgUrl,
+        thumbnail: imgUrl.preview,
         questions: editQuizQuestions
       })
     });
     const data = await response.json();
     console.log(data)
     // await Dashboard.getQuizzes();
-    // navigate('/dashboard');
+    navigate('/dashboard');
+  }
+  const handleImgChange = (event) => {
+    const selectedFile = event.target.files[0];
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      setImgUrl({
+        file: selectedFile,
+        preview: reader.result
+      });
+    };
+    reader.readAsDataURL(selectedFile)
   }
   return (
     <div>
@@ -58,7 +68,7 @@ function EditQuiz ({ token }) {
         <input type="text" value={editQuizName} onChange={val => setQuizName(val.target.value)}/>
         <br />
         <label>Thumbnail: </label>
-        <input type="file" value={imgUrl} onChange={val => setImgUrl(val.target.files[0])} title="Choose File"/>
+        <input type="file" onChange={handleImgChange} title="Choose File"/>
         <br />
         <label>Questions</label>
         <br />

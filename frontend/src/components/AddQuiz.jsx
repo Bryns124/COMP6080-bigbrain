@@ -1,12 +1,11 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom';
-import Dashboard from './Dashboard';
 import '../styles/AddQuiz.css';
-import bigBrainImg from '../assets/bigbrain_add_quiz_img.svg';
+// import bigBrainImg from '../assets/bigbrain_add_quiz_img.svg';
 function AddQuiz ({ token }) {
   const navigate = useNavigate();
   const [addQuiz, setAddQuiz] = React.useState('');
-  const [imgUrl, setImgUrl] = React.useState();
+  // const [imgUrl, setImgUrl] = React.useState({ file: null, preview: '' });
   const addNewQuiz = async () => {
     const response = await fetch('http://localhost:5005/admin/quiz/new', {
       method: 'POST',
@@ -16,17 +15,27 @@ function AddQuiz ({ token }) {
       },
       body: JSON.stringify({
         name: addQuiz,
-        thumbnail: imgUrl
       })
     });
     const data = await response.json();
     console.log(data);
-    await Dashboard.getQuizzes();
+    // await Dashboard.getQuizzes();
   }
   function returnFunc () {
     addNewQuiz();
     navigate('/dashboard');
   }
+  // const handleImgChange = (event) => {
+  //   const selectedFile = event.target.files[0];
+  //   const reader = new FileReader();
+  //   reader.onloadend = () => {
+  //     setImgUrl({
+  //       file: selectedFile,
+  //       preview: reader.result
+  //     });
+  //   };
+  //   reader.readAsDataURL(selectedFile)
+  // }
   return (
     <div className='BodyStyle'>
         {
@@ -37,12 +46,6 @@ function AddQuiz ({ token }) {
                 <div className='FieldsContainer'>
                   <label><b>Title for the Quiz</b></label><br />
                   <input type="text" value={addQuiz} onChange={val => setAddQuiz(val.target.value)} />
-                  <br />
-                  <label><b>Cover Image for Quiz </b></label>
-                  <div>
-                    <img src={bigBrainImg} alt="cover image" />
-                    <input type="file" value={imgUrl} onChange={val => setImgUrl(val.target.files[0])} title="Change"/>
-                  </div>
                   <br />
                   <button onClick={returnFunc}>Create Quiz</button>
                 </div>
