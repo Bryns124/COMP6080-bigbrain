@@ -33,3 +33,7 @@
   flex-direction: column;
   padding: 10px;
 }
+
+.AddQuestionContainer{
+  display: none;
+}

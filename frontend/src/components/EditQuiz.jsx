@@ -9,6 +9,7 @@ function EditQuiz ({ token }) {
   const navigate = useNavigate();
   const [editQuizName, setQuizName] = React.useState('');
   const [imgUrl, setImgUrl] = React.useState({ file: null, preview: '' });
+  const [showElement, setShowElement] = React.useState(false);
   // const [editQuizQuestions, setQuizQuestions] = React.useState([{}])
   // const [editQuizQuestions, setQuizQuestions] = React.useState(JSON.stringify[{
   //   questionType: 'MC',
@@ -92,9 +93,13 @@ function EditQuiz ({ token }) {
     };
     reader.readAsDataURL(selectedFile)
   }
+
+  const displayFunc = () => {
+    setShowElement(!showElement);
+  }
   return (
     <div className='BodyStyle'>
-      <div className='InnerBody'>
+      <div className='InnerBody' style={ { display: !showElement ? 'flex' : 'none' } }>
         <div className="MainContainer">
           <div className="FieldsContainer">
             <label><b>Change Quiz Title</b> </label>
@@ -105,7 +110,7 @@ function EditQuiz ({ token }) {
             <input type="file" onChange={handleImgChange} title="Choose File"/>
             <br />
             <label>Questions</label>
-            <button>Add Question</button>
+            <button onClick={displayFunc}>Add Question</button>
             <br />
             {/* </ul> */}
             <button onClick={() => editQuiz()}>Update Quiz</button>
@@ -127,6 +132,9 @@ function EditQuiz ({ token }) {
             ))
           }
         </div>
+      </div>
+      <div style={ { display: showElement ? 'block' : 'none' } }>
+          Add Question div
       </div>
     </div>
   )
