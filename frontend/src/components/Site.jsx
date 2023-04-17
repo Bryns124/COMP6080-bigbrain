@@ -15,7 +15,7 @@ function Site ({ setToken }) {
 
   return (
     <>
-        <header style={ { backgroundColor: '#F9E3CE' } }>
+        <header style={ { backgroundColor: '#FEAC88' } }>
             <nav>
                 <div style={ { display: 'flex', justifyContent: 'space-between' } }>
                     <img src={logo} style={ { width: 100, height: 40 } } alt="BigBrain Logo" />
