@@ -198,9 +198,9 @@ function EditQuiz ({ token }) {
             <input type="file" onChange={handleImgChange} title="Choose File"/>
             <br />
             <label>Questions</label>
-            <button onClick={displayFunc}>Add Question</button>
+            <button onClick={displayFunc} className='Button'>Add Question</button>
             <br />
-            <button onClick={() => editQuiz()}>Update Quiz</button>
+            <button onClick={() => editQuiz()} className='Button'>Update Quiz</button>
             <br />
             <br />
           </div>
@@ -241,7 +241,7 @@ function EditQuiz ({ token }) {
                         ))
                       }
                     </div>
-                    <button onClick={() => handleDeleteQuestion(index)}>Delete Question</button>
+                    <button onClick={() => handleDeleteQuestion(index)} className='Button'>Delete Question</button>
 
                   </div>
                 </div>
@@ -251,36 +251,44 @@ function EditQuiz ({ token }) {
         </div>
 
       </div>
-      <form style={ { display: showElement ? 'block' : 'none' } } id="add-question-form">
-        <label>Question type: </label>
-        <input type="text" value={questionType} onChange={val => handleQuestionType(val.target.value)}/>
-        <br />
-        <label>Question: </label>
-        <input type="text" value={questionNew} onChange={val => handleQuestionNew(val.target.value)}/>
-        <br />
-        <label>Question duration: </label>
-        <input type="number" value={questionDuration} onChange={val => handleQuestionDuration(val.target.value)}/>
-        <br />
-        <label>Options (Check correct answers): </label>
-        <div>
-          {inputBoxes}
-          {numInputs < 6 && (
-            <button onClick={addInputBox}>Add Input Box</button>
-          )}
+      <div className='InnerQueBody'>
+        <div className="QuestionContainer">
+          <div style={ { padding: '10px' } }>
+            <form style={ { display: showElement ? 'block' : 'none' } } id="add-question-form">
+              <div style={ { display: 'flex', flexDirection: 'column' } }>
+                <label><b>Question type</b></label>
+                <input type="text" value={questionType} onChange={val => handleQuestionType(val.target.value)}/>
+                <br />
+                <label><b>Enter the Question!</b></label>
+                <input type="text" value={questionNew} onChange={val => handleQuestionNew(val.target.value)}/>
+                <br />
+                <label><b>Time limit to solve!</b></label>
+                <input type="number" value={questionDuration} onChange={val => handleQuestionDuration(val.target.value)}/>
+                <br />
+                <label><b>Options (Check correct answers)</b> </label>
+                <div>
+                  {inputBoxes}
+                  {numInputs < 6 && (
+                    <button onClick={addInputBox} className='Button'>Add Input Box</button>
+                  )}
+                </div>
+                <label><b>Points</b></label>
+                <input type="number" value={questionPoints} onChange={val => handleQuestionPoints(val.target.value)}/>
+                <br />
+                <label><b>URL for Image for question </b></label>
+                <input type="text" value={questionURL} onChange={val => handleQuestionURL(val.target.value)}/>
+                <br />
+                <label><b>Or Upload image!</b></label>
+                <input type="file" onChange={handleQuestionImg} />
+                <br />
+                <button onClick={handleAddQuestion} className='Button'>
+                  Add question
+                </button>
+              </div>
+            </form>
+          </div>
         </div>
-        <label>Points: </label>
-        <input type="number" value={questionPoints} onChange={val => handleQuestionPoints(val.target.value)}/>
-        <br />
-        <label>URL for Image for question </label>
-        <input type="text" value={questionURL} onChange={val => handleQuestionURL(val.target.value)}/>
-        <br />
-        <label>Or Upload image!</label>
-        <input type="file" onChange={handleQuestionImg}/>
-        <br />
-        <button onClick={handleAddQuestion}>
-          Add question
-        </button>
-      </form>
+      </div>
     </div>
   )
 }
