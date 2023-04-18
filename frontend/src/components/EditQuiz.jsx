@@ -61,9 +61,7 @@ function EditQuiz ({ token }) {
     })
   }, []);
 
-  console.log('currentQuizQuestions: ', currentQuizQuestions)
-
-  const editQuiz = async () => {
+  const editQuiz = async (updatedQuestions) => {
     const response = await fetch(`http://localhost:5005/admin/quiz/${quizID}`, {
       method: 'PUT',
       headers: {
@@ -73,7 +71,8 @@ function EditQuiz ({ token }) {
       body: JSON.stringify({
         name: editQuizName,
         thumbnail: imgUrl.preview,
-        questions: currentQuizQuestions.concat(newQuestion)
+        // questions: currentQuizQuestions.concat(newQuestion)
+        questions: updatedQuestions
       })
     });
     const data = await response.json();
@@ -170,14 +169,16 @@ function EditQuiz ({ token }) {
   }
 
   const handleAddQuestion = () => {
-    editQuiz();
+    editQuiz(currentQuizQuestions.concat(newQuestion));
     navigate(`/dashboard/edit-quiz/${quizID}`);
   }
 
   const handleDeleteQuestion = (questionIndex) => {
+    console.log(currentQuizQuestions, 'for index', questionIndex)
     currentQuizQuestions.splice(questionIndex, 1);
-    editQuiz();
+    editQuiz(currentQuizQuestions);
   }
+  console.log('currentQuizQuestions: ', currentQuizQuestions)
 
   const displayFunc = () => {
     setShowElement(!showElement);
@@ -210,9 +211,8 @@ function EditQuiz ({ token }) {
                 <div style={ { width: '100%' } }>
                   <div style={ { display: 'flex', justifyContent: 'space-between', padding: '10px' } }>
                     <b onClick={() => handleQuestionClick(index)}>{que.question}</b>
-                    {console.log(que.img)}
                     <div>
-                      <img src={que.img.preview} alt='question img' style={ { width: '125px', height: '82px' } }></img>
+                      <img src={que.img} alt='question img' style={ { width: '125px', height: '82px' } }></img>
                     </div>
                   </div>
                   <div>
@@ -241,8 +241,7 @@ function EditQuiz ({ token }) {
                         ))
                       }
                     </div>
-                    <button onClick={() => handleDeleteQuestion(index)} className='Button'>Delete Question</button>
-
+                  <button onClick={() => handleDeleteQuestion(index)} className='Button'>Delete Question</button>
                   </div>
                 </div>
               </div>
