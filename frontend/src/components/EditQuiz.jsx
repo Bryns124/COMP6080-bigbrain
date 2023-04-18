@@ -74,7 +74,7 @@ function EditQuiz ({ token }) {
       body: JSON.stringify({
         name: editQuizName,
         thumbnail: imgUrl.preview,
-        questions: editQuizQuestions
+        questions: currentQuizQuestions.concat(newQuestion)
       })
     });
     const data = await response.json();
@@ -207,14 +207,16 @@ function EditQuiz ({ token }) {
         </div>
         <div style={ { display: 'flex', flexDirection: 'column', backgroundColor: '#FEDBDB', width: 'calc(100% - 23rem)' } }>
           {
-            editQuizQuestions.map((que, index) => (
+            currentQuizQuestions.map((que, index) => (
               <div key={que.questionType} style={ { position: 'relative', borderStyle: 'groove', borderRadius: '3px' } }>
                 {console.log(que)}
                 <div style={ { width: '100%' } }>
                   <div style={ { display: 'flex', justifyContent: 'space-between', padding: '10px' } }>
                     <b onClick={() => handleQuestionClick(index)}>{que.question}</b>
                     {console.log(que.img)}
-                    <div><img src={que.img} alt='question img' style={ { width: '125px', height: '82px' } }></img></div>
+                    <div>
+                      <img src={que.img.preview} alt='question img' style={ { width: '125px', height: '82px' } }></img>
+                    </div>
                   </div>
                   <div>
                     <div style={ { padding: '10px' } }>
