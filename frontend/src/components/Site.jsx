@@ -2,7 +2,7 @@ import React from 'react';
 import { useLocation, useNavigate, Outlet, Link } from 'react-router-dom';
 // import { logoutReq } from './Dashboard';
 
-import logo from '../assets/logo.svg'
+import logo from '../assets/BigBrainLogo.png'
 function Site ({ setToken }) {
   const navigate = useNavigate();
   const location = useLocation();
@@ -18,7 +18,9 @@ function Site ({ setToken }) {
         <header style={ { backgroundColor: '#FEAC88' } }>
             <nav>
                 <div style={ { display: 'flex', justifyContent: 'space-between' } }>
-                    <img src={logo} style={ { width: 100, height: 40 } } alt="BigBrain Logo" />
+                    <div style={ { padding: '2px' } }>
+                      <img src={logo} style={ { width: 100, height: 40 } } alt="BigBrain Logo" />
+                    </div>
 
                     <div style={ { display: 'flex' } }>
                       {!['/signup', '/signin'].includes(location.pathname)
