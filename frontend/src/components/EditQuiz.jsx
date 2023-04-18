@@ -15,7 +15,6 @@ function EditQuiz ({ token }) {
   const [questionType, setQuestionType] = React.useState('');
   const [questionNew, setQuestionNew] = React.useState('')
   const [questionDuration, setQuestionDuration] = React.useState(0)
-  // const [questionOptions, setQuestionOptions] = React.useState([])
   const [questionOptions, setQuestionOptions] = React.useState([
     { text: '', isCorrect: false },
     { text: '', isCorrect: false },
@@ -71,7 +70,6 @@ function EditQuiz ({ token }) {
       body: JSON.stringify({
         name: editQuizName,
         thumbnail: imgUrl.preview,
-        // questions: currentQuizQuestions.concat(newQuestion)
         questions: updatedQuestions
       })
     });
@@ -174,11 +172,9 @@ function EditQuiz ({ token }) {
   }
 
   const handleDeleteQuestion = (questionIndex) => {
-    console.log(currentQuizQuestions, 'for index', questionIndex)
     currentQuizQuestions.splice(questionIndex, 1);
     editQuiz(currentQuizQuestions);
   }
-  console.log('currentQuizQuestions: ', currentQuizQuestions)
 
   const displayFunc = () => {
     setShowElement(!showElement);
@@ -198,7 +194,7 @@ function EditQuiz ({ token }) {
             <label>Questions</label>
             <button onClick={displayFunc} className='Button'>Add Question</button>
             <br />
-            <button onClick={() => editQuiz()} className='Button'>Update Quiz</button>
+            <button onClick={editQuiz} className='Button'>Update Quiz</button>
             <br />
             <br />
           </div>

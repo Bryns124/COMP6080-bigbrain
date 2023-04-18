@@ -10,7 +10,9 @@ function Dashboard ({ token }) {
   const [quizBool, setQuizBool] = React.useState(false);
   const [allQuizzes, setAllQuizzes] = React.useState([]);
   const [editQuizBool, setEditQuizBool] = React.useState(false);
-  const [modalVisible, setModalVisible] = React.useState(false);
+  const [modalStartVisible, setModalStartVisible] = React.useState(false);
+  const [modalEndVisible, setModalEndVisible] = React.useState(false);
+  const [sessionID, setSessionID] = React.useState(0);
 
   // const [deleteQuizBool, setDeleteQuizBool] = React.useState(false);
   // const ques = {
@@ -80,21 +82,27 @@ function Dashboard ({ token }) {
     setEditQuizBool(!editQuizBool)
   }
 
-  const handleModalButton = () => {
-    setModalVisible(true);
+  const handleModalStartButton = () => {
+    setModalStartVisible(true);
   };
 
-  // const getQuizInfo = async () => {
-  //   const response = await fetch(`http://localhost:5005/admin/quiz/${quizID}`, {
-  //     method: 'GET',
-  //     headers: {
-  //       'content-type': 'application/json',
-  //       Authorization: `Bearer ${token}`
-  //     }
-  //   });
-  //   const data = await response.json();
-  //   return data;
-  // }
+  const handleModalEndButton = () => {
+    setModalEndVisible(true);
+  };
+
+  const getQuizInfo = async (id) => {
+    const response = await fetch(`http://localhost:5005/admin/quiz/${id}`, {
+      method: 'GET',
+      headers: {
+        'content-type': 'application/json',
+        Authorization: `Bearer ${token}`
+      }
+    });
+    const data = await response.json();
+    console.log(data.active);
+    setSessionID(data.active);
+    return data;
+  }
 
   const startGame = async (id) => {
     const response = await fetch(`http://localhost:5005/admin/quiz/${id}/start`, {
@@ -106,12 +114,21 @@ function Dashboard ({ token }) {
     });
     const data = await response.json();
     console.log('startgame data:', data)
-
-    // return data;
+    return data;
   }
 
-  // active key
-  // call after start game
+  const endGame = async (id) => {
+    const response = await fetch(`http://localhost:5005/admin/quiz/${id}/end`, {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json',
+        Authorization: `Bearer ${token}`
+      }
+    });
+    const data = await response.json();
+    console.log('endgame data:', data)
+    return data;
+  }
 
   // const advanceGame = async (id) => {
   //   const response = await fetch(`http://localhost:5005/admin/quiz/${id}/advance`, {
@@ -126,18 +143,60 @@ function Dashboard ({ token }) {
   //   // return data;
   // }
 
-  const handleModalClick = (id) => {
-    handleModalButton()
+  const handleModalStartClick = (id) => {
+    handleModalStartButton()
     startGame(id)
+    getQuizInfo(id)
   }
 
-  const Modal = () => {
+  const handleModalEndClick = (id) => {
+    handleModalEndButton()
+    endGame(id)
+  }
+
+  const [isCopied, setIsCopied] = React.useState(false);
+
+  async function copyToClipboard () {
+    console.log(sessionID);
+    await navigator.clipboard.writeText(`/quiz/join/${sessionID}`);
+    setIsCopied(true);
+  }
+
+  async function displayResults () {
+    console.log('results')
+    // navigate(somewhere)
+  }
+
+  // async function checkClipboard () {
+  //   const clipboardText = await navigator.clipboard.readText();
+  //   console.log('Clipboard content:', clipboardText);
+  // }
+
+  const Popup = () => {
     return (
       <div className='modal' style={{ display: 'block' }}>
       <div className='modal-content'>
-        <h2>Copy this link!</h2>
-        <p></p>
-        <button onClick={() => setModalVisible(false)}>Close Modal</button>
+        <h2>Click to copy the game URL</h2>
+        {/* <p onClick={copyToClipboard}>{sessionID}</p> */}
+        <p>Game session is {sessionID}</p>
+        <button onClick={copyToClipboard}>{isCopied ? 'Copied!' : 'Click here!'}</button>
+        {/* <button onClick={checkClipboard}>Check Clipboard</button> */}
+        <button onClick={() => setModalStartVisible(false)}>Close Modal</button>
+      </div>
+    </div>
+    );
+  };
+
+  const Popup2 = () => {
+    return (
+      <div className='modal' style={{ display: 'block' }}>
+      <div className='modal-content'>
+        <h2>Game is finished!</h2>
+        {/* <p onClick={copyToClipboard}>{sessionID}</p> */}
+        <p>Would you like to see the results?</p>
+        <button onClick={displayResults}>Show results</button>
+        {/* <button onClick={checkClipboard}>Check Clipboard</button> */}
+        <button onClick={() => setModalEndVisible(false)}>Close Modal</button>
       </div>
     </div>
     );
@@ -196,8 +255,12 @@ function Dashboard ({ token }) {
                           }
                         </div>
                         <div>
-                          <button className="modal-button" onClick={ () => handleModalClick(q.id) }>Start</button>
-                          {modalVisible && <Modal />}
+                          <button className="modal-button" onClick={ () => handleModalStartClick(q.id) }>Start</button>
+                          {modalStartVisible && <Popup />}
+                        </div>
+                        <div>
+                          <button className="modal-button" onClick={ () => handleModalEndClick(q.id) }>End</button>
+                          {modalEndVisible && <Popup2 />}
                         </div>
                         <div>
                         <button onClick={ () => deleteQuiz(q.id) }>Delete</button>
