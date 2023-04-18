@@ -195,12 +195,14 @@ function Dashboard ({ token }) {
                             editQuizBool && <EditQuiz token={token}/>
                           }
                         </div>
-                        <div>
-                          <button className="modal-button" onClick={ () => handleModalClick(q.id) }>Start</button>
-                          {modalVisible && <Modal />}
-                        </div>
-                        <div>
-                        <button onClick={ () => deleteQuiz(q.id) }>Delete</button>
+                        <div style={ { display: 'flex', justifyContent: 'space-around' } }>
+                          <div>
+                            <button className="modal-button" onClick={ () => handleModalClick(q.id) }>Start</button>
+                            {modalVisible && <Modal />}
+                          </div>
+                          <div>
+                            <button onClick={ () => deleteQuiz(q.id) }>Delete</button>
+                          </div>
                         </div>
                       </div>
                     </div>
