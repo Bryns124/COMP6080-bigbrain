@@ -158,13 +158,13 @@ function Dashboard ({ token }) {
 
   async function copyToClipboard () {
     console.log(sessionID);
-    await navigator.clipboard.writeText(`/quiz/join/${sessionID}`);
+    await navigator.clipboard.writeText(`http://localhost:3000/home/?sessionId=${sessionID}`);
     setIsCopied(true);
   }
 
   async function displayResults () {
     console.log('results')
-    // navigate(somewhere)
+    navigate('/dashboard/results')
   }
 
   // async function checkClipboard () {
@@ -244,7 +244,7 @@ function Dashboard ({ token }) {
                         <div className='QuizContent'>
                           <br />
                           <b>{q.name}</b><br />
-                          <button onClick={() => {
+                          <button className='Button' onClick={() => {
                             navEdit()
                             navigate(`edit-quiz/${q.id}`);
                           }}>
@@ -254,16 +254,18 @@ function Dashboard ({ token }) {
                             editQuizBool && <EditQuiz token={token}/>
                           }
                         </div>
-                        <div>
-                          <button className="modal-button" onClick={ () => handleModalStartClick(q.id) }>Start</button>
-                          {modalStartVisible && <Popup />}
-                        </div>
-                        <div>
-                          <button className="modal-button" onClick={ () => handleModalEndClick(q.id) }>End</button>
-                          {modalEndVisible && <Popup2 />}
-                        </div>
-                        <div>
-                        <button onClick={ () => deleteQuiz(q.id) }>Delete</button>
+                        <div style={ { display: 'flex', justifyContent: 'space-around' } }>
+                          <div>
+                            <button className="Button" onClick={ () => handleModalStartClick(q.id) }>Start</button>
+                            {modalStartVisible && <Popup />}
+                          </div>
+                          <div>
+                            <button className="Button" onClick={ () => handleModalEndClick(q.id) }>End</button>
+                            {modalEndVisible && <Popup2 />}
+                          </div>
+                          <div>
+                            <button className='Button' onClick={ () => deleteQuiz(q.id) }>Delete</button>
+                          </div>
                         </div>
                       </div>
                     </div>

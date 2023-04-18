@@ -194,7 +194,7 @@ function EditQuiz ({ token }) {
             <label>Questions</label>
             <button onClick={displayFunc} className='Button'>Add Question</button>
             <br />
-            <button onClick={editQuiz} className='Button'>Update Quiz</button>
+            <button onClick={() => editQuiz(null)} className='Button'>Update Quiz</button>
             <br />
             <br />
           </div>
@@ -208,7 +208,7 @@ function EditQuiz ({ token }) {
                   <div style={ { display: 'flex', justifyContent: 'space-between', padding: '10px' } }>
                     <b onClick={() => handleQuestionClick(index)}>{que.question}</b>
                     <div>
-                      <img src={que.img} alt='question img' style={ { width: '125px', height: '82px' } }></img>
+                      <img src={que.img.preview} alt='question img' style={ { width: '125px', height: '82px' } }></img>
                     </div>
                   </div>
                   <div>

@@ -1,0 +1,47 @@
+.bodyStyle{
+  background-color: #F9E3CE;
+  width: 100%;
+  z-index: 1;
+}
+
+.innerBody{
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
+
+  min-height: 100vh;
+}
+
+.mainContainer{
+  margin-right: 12px;
+  display: flex;
+  flex-direction: column;
+  border-style: groove;
+  border-radius: 5px;
+  width: 300px;
+  height: 180px;
+  background-color: #FEDBDB;
+}
+
+.fieldsContainer{
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+}
+
+.button{
+  width: 80%;
+  vertical-align: bottom;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px -4px inset;
+  background: rgb(51, 51, 51);
+  color: rgb(255, 255, 255);
+  border-radius: 4px;
+  font-size: 0.875rem;
+  font-weight: bold;
+  text-align: center;
+  text-decoration: none;
+  padding: 4px 16px 4px;
+  position: relative;
+  font-family: Montserrat, "Noto Sans Arabic", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
