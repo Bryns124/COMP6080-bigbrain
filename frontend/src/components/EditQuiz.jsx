@@ -5,7 +5,7 @@ import '../styles/EditQuiz.css'
 
 function EditQuiz ({ token }) {
   const quizID = useParams().quizID;
-  console.log(quizID)
+  // console.log(quizID)
   const navigate = useNavigate();
   const [editQuizName, setQuizName] = React.useState('');
   const [imgUrl, setImgUrl] = React.useState({ file: null, preview: '' });
@@ -25,8 +25,9 @@ function EditQuiz ({ token }) {
   ]);
   const [numInputs, setNumInputs] = React.useState(2);
   const [questionPoints, setQuestionPoints] = React.useState(0)
+  const [expandedQuestion, setExpandedQuestion] = React.useState(null);
 
-  const zz = [{
+  const newQuestion = [{
     questionType,
     question: questionNew,
     duration: parseInt(questionDuration),
@@ -35,8 +36,7 @@ function EditQuiz ({ token }) {
     correct: questionOptions.map(option => option.text).filter(option => option.isCorrect),
     questionImg: ''
   }]
-  const editQuizQuestions = currentQuizQuestions.concat(zz)
-  console.log(editQuizQuestions)
+  let editQuizQuestions = currentQuizQuestions.concat(newQuestion)
 
   const getQuizInfo = async () => {
     const response = await fetch(`http://localhost:5005/admin/quiz/${quizID}`, {
@@ -143,9 +143,24 @@ function EditQuiz ({ token }) {
     setQuestionPoints(value);
   }
 
-  const handleSubmit = () => {
-    console.log('Form submitted');
-    navigate(`/dashboard/edit-quiz/${quizID}`)
+  const handleQuestionClick = (questionIndex) => {
+    if (expandedQuestion === questionIndex) {
+      setExpandedQuestion(null);
+    } else {
+      setExpandedQuestion(questionIndex);
+    }
+  }
+
+  const handleAddQuestion = () => {
+    editQuiz();
+    navigate(`/dashboard/edit-quiz/${quizID}`);
+  }
+
+  const handleDeleteQuestion = (questionIndex) => {
+    currentQuizQuestions.splice(questionIndex, 1);
+    editQuizQuestions = currentQuizQuestions;
+    setCurrentQuizQuestions(editQuizQuestions);
+    editQuiz();
   }
 
   const displayFunc = () => {
@@ -172,20 +187,25 @@ function EditQuiz ({ token }) {
           </div>
         </div>
         <div>
-          {
-            editQuizQuestions.map(que => (
-              <div key={que.questionType}>
-                <p>{que.question}</p>
-                <p>{que.options}</p>
-              </div>
-            ))
-          }
+          {editQuizQuestions.map((que, index) => (
+            <div key={que.questionType} className="QuestionContainer">
+              <p onClick={() => handleQuestionClick(index)}>{que.question}</p>
+              {expandedQuestion === index && (<p style={{ whiteSpace: 'pre-wrap' }}>
+              {que.options.map((option, optionIndex) => (
+                <span key={optionIndex}>
+                  {option}
+                  {optionIndex !== que.options.length - 1 && '\n'}
+                </span>
+              ))}
+              </p>)}
+              <button onClick={() => handleDeleteQuestion(index)}>Delete Question</button>
+              {/* {console.log('this is the minge', editQuizQuestions)} */}
+            </div>
+          ))}
         </div>
       </div>
-      <form style={ { display: showElement ? 'block' : 'none' } } onSubmit={handleSubmit} id="add-question-form">
+      <form style={ { display: showElement ? 'block' : 'none' } } id="add-question-form">
         <label>Question type: </label>
-        {/* <input type="checkbox" id="checkBoxSC" checked={checked === 'checkBoxSC'} onClick={() => setChecked('checkBoxSC')}/> Single choice */}
-        {/* <input type="checkbox" id="checkBoxMC" checked={checked === 'checkBoxMC'} onClick={() => setChecked('checkBoxMC')}/> Multiple choice */}
         <input type="text" value={questionType} onChange={val => handleQuestionType(val.target.value)}/>
         <br />
         <label>Question: </label>
@@ -204,7 +224,7 @@ function EditQuiz ({ token }) {
         <label>Points: </label>
         <input type="number" value={questionPoints} onChange={val => handleQuestionPoints(val.target.value)}/>
         <br />
-        <button type="submit" form="add-question-form">
+        <button onClick={handleAddQuestion}>
           Add question
         </button>
       </form>

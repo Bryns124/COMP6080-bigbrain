@@ -37,3 +37,7 @@
 .AddQuestionContainer{
   display: none;
 }
+
+.QuestionContainer {
+  background-color: rgb(216, 149, 25);
+}
