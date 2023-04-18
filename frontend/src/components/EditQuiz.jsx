@@ -213,7 +213,7 @@ function EditQuiz ({ token }) {
                 <div style={ { width: '100%' } }>
                   <div style={ { display: 'flex', justifyContent: 'space-between', padding: '10px' } }>
                     <b onClick={() => handleQuestionClick(index)}>{que.question}</b>
-                    {console.log(que.img)}
+                    {/* {console.log('img', que.img)} */}
                     <div><img src={que.img} alt='question img' style={ { width: '125px', height: '82px' } }></img></div>
                   </div>
                   <div>
@@ -222,6 +222,7 @@ function EditQuiz ({ token }) {
                         que.options.map((op, i) => (
                           <div key={op.text}>
                             <div className='QuestionBox'>
+                              {console.log(op)}
                               {op.includes(que.correct[i])
                                 ? <div style={ { display: 'flex', justifyContent: 'space-between', height: '20px' } }>
                                     {op}
@@ -271,7 +272,7 @@ function EditQuiz ({ token }) {
         <label>Points: </label>
         <input type="number" value={questionPoints} onChange={val => handleQuestionPoints(val.target.value)}/>
         <br />
-        <label>URL for Image for question </label>
+        <label>URL for Youtube video for question </label>
         <input type="text" value={questionURL} onChange={val => handleQuestionURL(val.target.value)}/>
         <br />
         <label>Or Upload image!</label>
