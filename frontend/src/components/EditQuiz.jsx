@@ -2,7 +2,8 @@ import React from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import '../styles/EditQuiz.css'
 // import Dashboard from './Dashboard';
-
+import correctLogo from '../assets/correct.png';
+import wrongLogo from '../assets/Wrong-PNG-Image.png';
 function EditQuiz ({ token }) {
   const quizID = useParams().quizID;
   // console.log(quizID)
@@ -81,18 +82,6 @@ function EditQuiz ({ token }) {
     navigate('/dashboard');
   }
 
-  const handleImgChange = (event) => {
-    const selectedFile = event.target.files[0];
-    const reader = new FileReader();
-    reader.onloadend = () => {
-      setImgUrl({
-        file: selectedFile,
-        preview: reader.result
-      });
-    };
-    reader.readAsDataURL(selectedFile)
-  }
-
   const handleQuestionType = (value) => {
     setQuestionType(value);
   }
@@ -151,17 +140,28 @@ function EditQuiz ({ token }) {
   }
 
   const handleQuestionImg = (event) => {
+    const selectFile = event.target.files[0];
+    const read = new FileReader();
+    read.onloadend = () => {
+      setQuestionIMG({
+        file: selectFile,
+        preview: read.result
+      });
+    };
+    read.readAsDataURL(selectFile)
+  }
+
+  const handleImgChange = (event) => {
     const selectedFile = event.target.files[0];
     const reader = new FileReader();
     reader.onloadend = () => {
-      setQuestionIMG({
+      setImgUrl({
         file: selectedFile,
         preview: reader.result
       });
     };
     reader.readAsDataURL(selectedFile)
   }
-
   const handleQuestionClick = (questionIndex) => {
     if (expandedQuestion === questionIndex) {
       setExpandedQuestion(null);
@@ -205,24 +205,51 @@ function EditQuiz ({ token }) {
             <br />
           </div>
         </div>
-        <div>
-          {editQuizQuestions.map((que, index) => (
-            <div key={que.questionType} className="QuestionContainer">
-              <p onClick={() => handleQuestionClick(index)}>{que.question}</p>
-              <img src={que.img}></img>
-              {expandedQuestion === index && (<p style={{ whiteSpace: 'pre-wrap' }}>
-              {que.options.map((option, optionIndex) => (
-                <span key={optionIndex}>
-                  {option}
-                  {optionIndex !== que.options.length - 1 && '\n'}
-                </span>
-              ))}
-              </p>)}
-              <button onClick={() => handleDeleteQuestion(index)}>Delete Question</button>
-              {/* {console.log('this is the editquizquestions', editQuizQuestions)} */}
-            </div>
-          ))}
+        <div style={ { display: 'flex', flexDirection: 'column', backgroundColor: '#FEDBDB', width: 'calc(100% - 23rem)' } }>
+          {
+            editQuizQuestions.map((que, index) => (
+              <div key={que.questionType} style={ { position: 'relative', borderStyle: 'groove', borderRadius: '3px' } }>
+                {console.log(que)}
+                <div style={ { width: '100%' } }>
+                  <div style={ { display: 'flex', justifyContent: 'space-between', padding: '10px' } }>
+                    <b onClick={() => handleQuestionClick(index)}>{que.question}</b>
+                    {console.log(que.img)}
+                    <div><img src={que.img} alt='question img' style={ { width: '125px', height: '82px' } }></img></div>
+                  </div>
+                  <div>
+                    <div style={ { padding: '10px' } }>
+                      {
+                        que.options.map((op, i) => (
+                          <div key={op.text}>
+                            <div className='QuestionBox'>
+                              {op.includes(que.correct[i])
+                                ? <div style={ { display: 'flex', justifyContent: 'space-between', height: '20px' } }>
+                                    {op}
+                                    <div>
+                                      <img src={correctLogo} alt="correct" style={ { width: '20px', height: '20px' } }/>
+                                    </div>
+                                  </div>
+                                : <div style={ { display: 'flex', justifyContent: 'space-between', height: '20px' } }>
+                                  {op}
+                                  <div>
+                                      <img src={wrongLogo} alt="correct" style={ { width: '20px', height: '20px' } }/>
+                                  </div>
+                                </div>
+                              }
+                            </div>
+                          </div>
+                        ))
+                      }
+                    </div>
+                    <button onClick={() => handleDeleteQuestion(index)}>Delete Question</button>
+
+                  </div>
+                </div>
+              </div>
+            ))
+          }
         </div>
+
       </div>
       <form style={ { display: showElement ? 'block' : 'none' } } id="add-question-form">
         <label>Question type: </label>
@@ -244,10 +271,10 @@ function EditQuiz ({ token }) {
         <label>Points: </label>
         <input type="number" value={questionPoints} onChange={val => handleQuestionPoints(val.target.value)}/>
         <br />
-        <label>URL for youtube: </label>
+        <label>URL for Image for question </label>
         <input type="text" value={questionURL} onChange={val => handleQuestionURL(val.target.value)}/>
         <br />
-        <label>Upload image: </label>
+        <label>Or Upload image!</label>
         <input type="file" onChange={handleQuestionImg}/>
         <br />
         <button onClick={handleAddQuestion}>
