@@ -10,6 +10,7 @@ function Dashboard ({ token }) {
   const [quizBool, setQuizBool] = React.useState(false);
   const [allQuizzes, setAllQuizzes] = React.useState([]);
   const [editQuizBool, setEditQuizBool] = React.useState(false);
+  const [modalVisible, setModalVisible] = React.useState(false);
 
   // const [deleteQuizBool, setDeleteQuizBool] = React.useState(false);
   // const ques = {
@@ -95,6 +96,22 @@ function Dashboard ({ token }) {
     setEditQuizBool(!editQuizBool)
   }
 
+  const handleModalButton = () => {
+    setModalVisible(true);
+  };
+
+  const Modal = () => {
+    return (
+      <div className='modal' style={{ display: 'block' }}>
+      <div className='modal-content'>
+        <h2>Modal Title</h2>
+        <p>Modal Content</p>
+        <button onClick={() => setModalVisible(false)}>Close Modal</button>
+      </div>
+    </div>
+    );
+  };
+
   return (
     <div className='BodyStyle'>
       <h3>Dashboard!</h3>
@@ -146,6 +163,10 @@ function Dashboard ({ token }) {
                           {
                             editQuizBool && <EditQuiz token={token}/>
                           }
+                        </div>
+                        <div>
+                          <button className="modal-button" onClick={handleModalButton}>Open Modal</button>
+                          {modalVisible && <Modal />}
                         </div>
                         <div>
                         <button onClick={ () => deleteQuiz(q.id) }>Delete</button>
