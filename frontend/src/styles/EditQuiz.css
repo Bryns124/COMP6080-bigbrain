@@ -39,5 +39,35 @@
 }
 
 .QuestionContainer {
-  background-color: rgb(216, 149, 25);
+  margin-right: 12px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  border-style: groove;
+  border-radius: 5px;
+  width: 400px;
+  height: 500px;
+  background-color: #FEDBDB;
+}
+
+.InnerQueBody{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  padding-top: 2rem;
+  padding-bottom: 5.5rem;
+  box-sizing: border-box;
+  min-width: 0px;
+  margin: 0px auto;
+  width: 100%;
+  max-width: 1280px;
+  height: fit-content;
+  min-height: 100vh;
+}
+
+.Button{
+  background-color: #FF9365;
+  border: 0px;
+  box-shadow: #FF7E47;
+  border-radius: 4px;
 }
