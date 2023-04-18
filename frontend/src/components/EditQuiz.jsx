@@ -25,6 +25,8 @@ function EditQuiz ({ token }) {
   ]);
   const [numInputs, setNumInputs] = React.useState(2);
   const [questionPoints, setQuestionPoints] = React.useState(0)
+  const [questionURL, setQuestionURL] = React.useState('')
+  const [questionIMG, setQuestionIMG] = React.useState({ file: null, preview: '' })
   const [expandedQuestion, setExpandedQuestion] = React.useState(null);
 
   const newQuestion = [{
@@ -33,8 +35,9 @@ function EditQuiz ({ token }) {
     duration: parseInt(questionDuration),
     options: questionOptions.map(option => option.text).filter(text => text !== ''),
     points: parseInt(questionPoints),
-    correct: questionOptions.map(option => option.text).filter(option => option.isCorrect),
-    questionImg: ''
+    correct: questionOptions.filter(option => option.isCorrect).map(option => option.text),
+    url: questionURL,
+    img: questionIMG
   }]
   let editQuizQuestions = currentQuizQuestions.concat(newQuestion)
 
@@ -143,6 +146,22 @@ function EditQuiz ({ token }) {
     setQuestionPoints(value);
   }
 
+  const handleQuestionURL = (value) => {
+    setQuestionURL(value);
+  }
+
+  const handleQuestionImg = (event) => {
+    const selectedFile = event.target.files[0];
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      setQuestionIMG({
+        file: selectedFile,
+        preview: reader.result
+      });
+    };
+    reader.readAsDataURL(selectedFile)
+  }
+
   const handleQuestionClick = (questionIndex) => {
     if (expandedQuestion === questionIndex) {
       setExpandedQuestion(null);
@@ -190,6 +209,7 @@ function EditQuiz ({ token }) {
           {editQuizQuestions.map((que, index) => (
             <div key={que.questionType} className="QuestionContainer">
               <p onClick={() => handleQuestionClick(index)}>{que.question}</p>
+              <img src={que.img}></img>
               {expandedQuestion === index && (<p style={{ whiteSpace: 'pre-wrap' }}>
               {que.options.map((option, optionIndex) => (
                 <span key={optionIndex}>
@@ -199,7 +219,7 @@ function EditQuiz ({ token }) {
               ))}
               </p>)}
               <button onClick={() => handleDeleteQuestion(index)}>Delete Question</button>
-              {/* {console.log('this is the minge', editQuizQuestions)} */}
+              {/* {console.log('this is the editquizquestions', editQuizQuestions)} */}
             </div>
           ))}
         </div>
@@ -223,6 +243,12 @@ function EditQuiz ({ token }) {
         </div>
         <label>Points: </label>
         <input type="number" value={questionPoints} onChange={val => handleQuestionPoints(val.target.value)}/>
+        <br />
+        <label>URL for youtube: </label>
+        <input type="text" value={questionURL} onChange={val => handleQuestionURL(val.target.value)}/>
+        <br />
+        <label>Upload image: </label>
+        <input type="file" onChange={handleQuestionImg}/>
         <br />
         <button onClick={handleAddQuestion}>
           Add question
