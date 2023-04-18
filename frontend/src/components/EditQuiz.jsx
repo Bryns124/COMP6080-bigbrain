@@ -247,40 +247,42 @@ function EditQuiz ({ token }) {
 
       </div>
       <div className='InnerQueBody'>
-        <div className="QuestionContainer">
-          <div style={ { padding: '10px' } }>
-            <form style={ { display: showElement ? 'block' : 'none' } } id="add-question-form">
-              <div style={ { display: 'flex', flexDirection: 'column' } }>
-                <label><b>Question type</b></label>
-                <input type="text" value={questionType} onChange={val => handleQuestionType(val.target.value)}/>
-                <br />
-                <label><b>Enter the Question!</b></label>
-                <input type="text" value={questionNew} onChange={val => handleQuestionNew(val.target.value)}/>
-                <br />
-                <label><b>Time limit to solve!</b></label>
-                <input type="number" value={questionDuration} onChange={val => handleQuestionDuration(val.target.value)}/>
-                <br />
-                <label><b>Options (Check correct answers)</b> </label>
-                <div>
-                  {inputBoxes}
-                  {numInputs < 6 && (
-                    <button onClick={addInputBox} className='Button'>Add Input Box</button>
-                  )}
+        <div style={ { display: showElement ? 'block' : 'none' } }>
+          <div className="QuestionContainer">
+            <div style={ { padding: '10px' } }>
+              <form id="add-question-form">
+                <div style={ { display: 'flex', flexDirection: 'column' } }>
+                  <label><b>Question type</b></label>
+                  <input type="text" value={questionType} onChange={val => handleQuestionType(val.target.value)}/>
+                  <br />
+                  <label><b>Enter the Question!</b></label>
+                  <input type="text" value={questionNew} onChange={val => handleQuestionNew(val.target.value)}/>
+                  <br />
+                  <label><b>Time limit to solve!</b></label>
+                  <input type="number" value={questionDuration} onChange={val => handleQuestionDuration(val.target.value)}/>
+                  <br />
+                  <label><b>Options (Check correct answers)</b> </label>
+                  <div>
+                    {inputBoxes}
+                    {numInputs < 6 && (
+                      <button onClick={addInputBox} className='Button'>Add Input Box</button>
+                    )}
+                  </div>
+                  <label><b>Points</b></label>
+                  <input type="number" value={questionPoints} onChange={val => handleQuestionPoints(val.target.value)}/>
+                  <br />
+                  <label><b>URL for Image for question </b></label>
+                  <input type="text" value={questionURL} onChange={val => handleQuestionURL(val.target.value)}/>
+                  <br />
+                  <label><b>Or Upload image!</b></label>
+                  <input type="file" onChange={handleQuestionImg} />
+                  <br />
+                  <button onClick={handleAddQuestion} className='Button'>
+                    Add question
+                  </button>
                 </div>
-                <label><b>Points</b></label>
-                <input type="number" value={questionPoints} onChange={val => handleQuestionPoints(val.target.value)}/>
-                <br />
-                <label><b>URL for Image for question </b></label>
-                <input type="text" value={questionURL} onChange={val => handleQuestionURL(val.target.value)}/>
-                <br />
-                <label><b>Or Upload image!</b></label>
-                <input type="file" onChange={handleQuestionImg} />
-                <br />
-                <button onClick={handleAddQuestion} className='Button'>
-                  Add question
-                </button>
-              </div>
-            </form>
+              </form>
+            </div>
           </div>
         </div>
       </div>
