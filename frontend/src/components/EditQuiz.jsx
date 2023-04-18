@@ -40,7 +40,6 @@ function EditQuiz ({ token }) {
     url: questionURL,
     img: questionIMG
   }]
-  let editQuizQuestions = currentQuizQuestions.concat(newQuestion)
 
   const getQuizInfo = async () => {
     const response = await fetch(`http://localhost:5005/admin/quiz/${quizID}`, {
@@ -74,7 +73,7 @@ function EditQuiz ({ token }) {
       body: JSON.stringify({
         name: editQuizName,
         thumbnail: imgUrl.preview,
-        questions: editQuizQuestions
+        questions: currentQuizQuestions.concat(newQuestion)
       })
     });
     const data = await response.json();
@@ -177,8 +176,6 @@ function EditQuiz ({ token }) {
 
   const handleDeleteQuestion = (questionIndex) => {
     currentQuizQuestions.splice(questionIndex, 1);
-    editQuizQuestions = currentQuizQuestions;
-    setCurrentQuizQuestions(editQuizQuestions);
     editQuiz();
   }
 
@@ -207,7 +204,7 @@ function EditQuiz ({ token }) {
         </div>
         <div style={ { display: 'flex', flexDirection: 'column', backgroundColor: '#FEDBDB', width: 'calc(100% - 23rem)' } }>
           {
-            editQuizQuestions.map((que, index) => (
+            currentQuizQuestions.map((que, index) => (
               <div key={que.questionType} style={ { position: 'relative', borderStyle: 'groove', borderRadius: '3px' } }>
                 {console.log(que)}
                 <div style={ { width: '100%' } }>

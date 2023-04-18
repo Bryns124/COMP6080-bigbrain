@@ -55,22 +55,6 @@ function Dashboard ({ token }) {
     await getQuizzes();
   }, [editQuizBool]);
 
-  // const getQuizInfo = async () => {
-  //   const response = await fetch(`http://localhost:5005/admin/quiz/${quizID}`, {
-  //     method: 'GET',
-  //     headers: {
-  //       'content-type': 'application/json',
-  //       Authorization: `Bearer ${token}`
-  //     }
-  //   });
-  //   const data = await response.json();
-  //   console.log(data);
-  // }
-
-  // React.useEffect(async () => {
-  //   await getQuizInfo()
-  // }, []);
-
   const deleteQuiz = async (id) => {
     const response = await fetch(`http://localhost:5005/admin/quiz/${id}`, {
       method: 'DELETE',
@@ -100,12 +84,59 @@ function Dashboard ({ token }) {
     setModalVisible(true);
   };
 
+  // const getQuizInfo = async () => {
+  //   const response = await fetch(`http://localhost:5005/admin/quiz/${quizID}`, {
+  //     method: 'GET',
+  //     headers: {
+  //       'content-type': 'application/json',
+  //       Authorization: `Bearer ${token}`
+  //     }
+  //   });
+  //   const data = await response.json();
+  //   return data;
+  // }
+
+  const startGame = async (id) => {
+    const response = await fetch(`http://localhost:5005/admin/quiz/${id}/start`, {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json',
+        Authorization: `Bearer ${token}`
+      }
+    });
+    const data = await response.json();
+    console.log('startgame data:', data)
+
+    // return data;
+  }
+
+  // active key
+  // call after start game
+
+  // const advanceGame = async (id) => {
+  //   const response = await fetch(`http://localhost:5005/admin/quiz/${id}/advance`, {
+  //     method: 'POST',
+  //     headers: {
+  //       'content-type': 'application/json',
+  //       Authorization: `Bearer ${token}`
+  //     }
+  //   });
+  //   const data = await response.json();
+  //   console.log('advancegame data:', data)
+  //   // return data;
+  // }
+
+  const handleModalClick = (id) => {
+    handleModalButton()
+    startGame(id)
+  }
+
   const Modal = () => {
     return (
       <div className='modal' style={{ display: 'block' }}>
       <div className='modal-content'>
-        <h2>Modal Title</h2>
-        <p>Modal Content</p>
+        <h2>Copy this link!</h2>
+        <p></p>
         <button onClick={() => setModalVisible(false)}>Close Modal</button>
       </div>
     </div>
@@ -165,7 +196,7 @@ function Dashboard ({ token }) {
                           }
                         </div>
                         <div>
-                          <button className="modal-button" onClick={handleModalButton}>Open Modal</button>
+                          <button className="modal-button" onClick={ () => handleModalClick(q.id) }>Start</button>
                           {modalVisible && <Modal />}
                         </div>
                         <div>
