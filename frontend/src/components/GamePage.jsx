@@ -1,6 +1,6 @@
 import React from 'react';
 import '../styles/JoinGame.css'
-import 
+// import 
 function GamePage (props) {
   // const token = localStorage.getItem('token')
   const [sessionId, setSessionId] = React.useState('');
@@ -11,7 +11,9 @@ function GamePage (props) {
   const [secondsRemaining, setSecondsRemaining] = React.useState(10);
   const [isRunning, setIsRunning] = React.useState(false);
   const [timerFinished, setTimerFinished] = React.useState(false);
+  const currentQuestionIndex = 0
   const playerData = props.playerData;
+  const questions = {}
   React.useMemo(() => {
     const URL = window.location.href;
     const id = URL.split('sessionId=')
@@ -58,15 +60,61 @@ function GamePage (props) {
   };
 
   const getPlayerStatus = async () => {
-    const response = await fetch(`http://localhost:5005/player/${playerId}/status`, {
+    const response = await fetch(`http://localhost:5005/play/${playerId}/status`, {
       method: 'GET',
       headers: {
         'content-type': 'application/json',
         Authorization: `Bearer ${token}`
       }
-    });
-    const data = await response.json();
-    return data;
+      });
+      const data = await response.json();
+  }
+
+  const getPlayerQuestion = async () => {
+    const response = await fetch(`http://localhost:5005/play/${playerId}/question`, {
+      method: 'GET',
+      headers: {
+        'content-type': 'application/json',
+        Authorization: `Bearer ${token}`
+      }
+      });
+      const data = await response.json();
+  }
+
+  const getPlayerAnswer = async () => {
+    const response = await fetch(`http://localhost:5005/play/${playerId}/answer`, {
+      method: 'GET',
+      headers: {
+        'content-type': 'application/json',
+        Authorization: `Bearer ${token}`
+      }
+      });
+      const data = await response.json();
+  }
+
+  const getPlayerAnswerUpdate = async () => {
+    const response = await fetch(`http://localhost:5005/play/${playerId}/answer`, {
+      method: 'PUT',
+      headers: {
+        'content-type': 'application/json',
+        Authorization: `Bearer ${token}`
+      },
+      body: {
+        answerIds: answers
+      }
+      });
+      const data = await response.json();
+  }
+
+  const getPlayerResults = async () => {
+    const response = await fetch(`http://localhost:5005/play/${playerId}/results`, {
+      method: 'GET',
+      headers: {
+        'content-type': 'application/json',
+        Authorization: `Bearer ${token}`
+      }
+      });
+      const data = await response.json();
   }
 
   // const getGameResults = async () => {
