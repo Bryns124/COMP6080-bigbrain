@@ -4,7 +4,6 @@ import { useLocation, useNavigate, Outlet, Link } from 'react-router-dom';
 
 import logo from '../assets/BigBrainLogo.png'
 function Site ({ setToken }) {
-
   const navigate = useNavigate();
   const location = useLocation();
   function logout () {
