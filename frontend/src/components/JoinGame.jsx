@@ -18,7 +18,7 @@ function JoinGame ({ token }) {
   const handleCSSClass = () => {
     setShowClass(!showClass)
   }
-  const joingame = async () => {
+  const joinGame = async () => {
     const response = await fetch(`http://localhost:5005/play/join/${sessionId}`, {
       method: 'POST',
       headers: {
@@ -35,9 +35,9 @@ function JoinGame ({ token }) {
       console.log('not ok');
       setGameStarted(gameStarted);
     }
-    // const data = await response.json();
-    // console.log('playerid', data)
-    // return data;
+    const data = await response.json();
+    console.log('playerid', data)
+    return data;
   }
 
   // id

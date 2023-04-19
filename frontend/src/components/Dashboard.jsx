@@ -14,8 +14,8 @@ function Dashboard ({ token }) {
   const [modalStartVisible, setModalStartVisible] = React.useState(false);
   const [modalEndVisible, setModalEndVisible] = React.useState(false);
   const [sessionID, setSessionID] = React.useState(0);
-  const [currentQuestionIndex, setCurrentQuestionIndex] = React.useState(0);
-  const [questions, setQuestions] = React.useState([]);
+  // const [currentQuestionIndex, setCurrentQuestionIndex] = React.useState(0);
+  // const [questions, setQuestions] = React.useState([]);
   // const logout = async () => {
   //   const response = await fetch('http://localhost:5005/admin/auth/logout', {
   //     method: 'POST',

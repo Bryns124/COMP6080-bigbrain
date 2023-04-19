@@ -1,8 +1,10 @@
 import React from 'react';
 import '../styles/JoinGame.css'
+import 
 function GamePage (props) {
   // const token = localStorage.getItem('token')
   const [sessionId, setSessionId] = React.useState('');
+  const [playerId, setPlayerId] = React.useState('');
 
   // const [answersAvailable, setAnswersAvailable] = React.useState(false);
   // const [answers, setAnswers] = React.useState([]);
@@ -55,7 +57,17 @@ function GamePage (props) {
     return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
   };
 
-
+  const getPlayerStatus = async () => {
+    const response = await fetch(`http://localhost:5005/player/${playerId}/status`, {
+      method: 'GET',
+      headers: {
+        'content-type': 'application/json',
+        Authorization: `Bearer ${token}`
+      }
+    });
+    const data = await response.json();
+    return data;
+  }
 
   // const getGameResults = async () => {
   //   const response = await fetch(`http://localhost:5005/admin/session/${sessionId}/results`, {
@@ -68,8 +80,6 @@ function GamePage (props) {
   //   const data = await response.json();
   //   return data;
   // }
-
-
 
   // React.useEffect(() => {
   //   getGameResults().then((data) => {
