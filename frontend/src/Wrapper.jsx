@@ -31,8 +31,6 @@ function Wrapper () {
         navigate('/edit-quiz/:quizID');
       } else if (['/dashboard/results'].includes(location.pathname)) {
         navigate('/dashboard/results');
-      } else {
-        navigate('/signin');
       }
     } else if (['/home'].includes(location.pathname)) {
       navigate('/home');

@@ -24,6 +24,7 @@ function GamePage (props) {
                   <div>
                     answer when time = 0
                   </div>
+                  <button>advance</button>
               </div>
               : <div className='loadingContainer'>
                 <h1>Loading...</h1>
