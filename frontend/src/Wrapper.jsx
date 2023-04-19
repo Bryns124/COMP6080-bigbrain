@@ -3,7 +3,8 @@ import SignIn from './/components/SignIn'
 import SignUp from './/components/SignUp'
 import Dashboard from './/components/Dashboard'
 import Site from './/components/Site'
-
+import JoinGame from './components/JoinGame';
+import ResultPage from './components/Results';
 import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
 import AddQuiz from './components/AddQuiz';
 import EditQuiz from './components/EditQuiz';
@@ -27,11 +28,15 @@ function Wrapper () {
         navigate('/creator');
       } else if (['/dashboard/edit-quiz/:quizID'].includes(location.pathname)) {
         navigate('/edit-quiz/:quizID');
+      } else if (['/dashboard/results'].includes(location.pathname)) {
+        navigate('/dashboard/results');
       } else {
         navigate('/signin');
       }
+    } else if (['/home'].includes(location.pathname)) {
+      navigate('/home');
     } else {
-      navigate('/signin');
+      navigate('/home');
       localStorage.removeItem('token');
     }
   }, []);
@@ -42,9 +47,11 @@ function Wrapper () {
           <Route path='/dashboard' element= {<Dashboard token={token}/>}/>
           <Route path='/dashboard/creator' element= {<AddQuiz token={token}/>}/>
           <Route path='/dashboard/edit-quiz/:quizID' element= {<EditQuiz token={token}/>}/>
+          <Route path='/dashboard/results' element= {<ResultPage token={token}/>}/>
           <Route path='/signup' element= {<SignUp onSuccess={manageTokenSet} />}/>
           <Route path='/signin' element= {<SignIn onSuccess={manageTokenSet} />}/>
         </Route>
+        <Route path='/home' element= {<JoinGame/>}/>
       </Routes>
     </>
   );

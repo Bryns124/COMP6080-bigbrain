@@ -3,15 +3,34 @@ import React from 'react';
 function SignIn ({ onSuccess }) {
   const [email, setEmail] = React.useState('')
   const [password, setPassword] = React.useState('')
-  const bodyStyle = {
+  const mainBodyContainer = {
     backgroundColor: '#F9E3CE',
+    width: '100%'
+  }
+  const InnerBody = {
+    display: 'flex',
+    paddingTop: '2rem',
+    paddingBottom: '5.5rem',
+    boxSizing: 'border-box',
+    minWidth: '0px',
+    margin: '0px auto',
+    width: '100%',
+    maxWidth: '1280px',
+    flexWrap: 'nowrap',
+    height: 'fit-content',
+    minHeight: '100vh',
+    backgroundColor: '#F9E3CE',
+
+  }
+  const bodyStyle = {
+    backgroundColor: '#FEDBDB',
     borderRadius: 15,
     position: 'absolute',
     display: 'flex',
     flexDirection: 'column',
     width: '100%',
     maxWidth: '26rem',
-    height: 525,
+    height: 460,
     alignItems: 'center',
     WebkitBoxAlign: 'center'
   }
@@ -60,25 +79,29 @@ function SignIn ({ onSuccess }) {
   }
 
   return (
-    <div style={mainBodyStyle}>
-      <div style={bodyStyle}>
-        <section style={sectionStyle}>
-          <h2 style={ { textAlign: 'center', lineHeight: '140%' } }>Log In</h2>
-          <div style={ { width: '100%', display: 'flex', flexDirection: 'column' } }>
-            <form style={ { margin: '1.5rem 0px' } } data-testid="login-form">
-              <label>Email</label>
-              <br />
-              <input type="email" name="email" value={email} onChange={(e) => setEmail(e.target.value)} style={ { width: '100%', minHeight: '2.75rem' } }/><br />
-              <br />
-              <label>Password</label>
-              <br />
-              <input type="password" name="password" value={password} onChange={(e) => setPassword(e.target.value)} style={ { width: '100%', minHeight: '2.75rem' } }/><br />
-              <br />
-              <button onClick={login} style={ { width: '100%', minHeight: '2.75rem' } }>Sign in</button>
-            </form>
-          </div>
-        </section>
+    <div style={mainBodyContainer}>
+      <div style={InnerBody}>
+      <div style={mainBodyStyle}>
+        <div style={bodyStyle}>
+          <section style={sectionStyle}>
+            <h2 style={ { textAlign: 'center', lineHeight: '140%' } }>Log In</h2>
+            <div style={ { width: '100%', display: 'flex', flexDirection: 'column' } }>
+              <form style={ { margin: '1.5rem 0px' } } data-testid="login-form">
+                <label>Email</label>
+                <br />
+                <input type="email" name="email" value={email} onChange={(e) => setEmail(e.target.value)} style={ { width: '100%', minHeight: '2.75rem' } }/><br />
+                <br />
+                <label>Password</label>
+                <br />
+                <input type="password" name="password" value={password} onChange={(e) => setPassword(e.target.value)} style={ { width: '100%', minHeight: '2.75rem' } }/><br />
+                <br />
+                <button name="login-button" onClick={login} style={ { width: '100%', minHeight: '2.75rem' } }>Sign in</button>
+              </form>
+            </div>
+          </section>
+        </div>
       </div>
+    </div>
     </div>
   )
 }

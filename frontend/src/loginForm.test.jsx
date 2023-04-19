@@ -1,6 +1,7 @@
 import SignIn from './components/SignIn';
 import { shallow, configure } from 'enzyme';
 import Adapter from '@wojtekmaj/enzyme-adapter-react-17';
+import { render, fireEvent, getByRole } from '@testing-library/react';
 
 
 const noop = () => {}
@@ -21,20 +22,15 @@ describe('LoginForm', () => {
     expect(password.prop('name')).toBe('password');
     expect(email.prop('name')).toBe('email');
   })
-  // it('should call the onSubmit function when the submit button is clicked', () => {
-  //   const onSuccess = jest.fn();
-  //   const wrapper = shallow(<SignIn onSuccess={onSuccess} />);
-  //   const form = wrapper.find('[data-testid="login-form"]');
-  //   const emailInput = form.find('input[name="email"]');
-  //   const passwordInput = form.find('input[name="password"]');
-  //   const submitButton = form.find('button');
+  it('should call the onSubmit function when the submit button is clicked', () => {
+    const mockOnSubmit = jest.fn();
+    const { getByRole } = render(<SignIn onSubmit={mockOnSubmit} />);
 
-  //   // simulate form input change
-  //   emailInput.simulate('change', { target: { name: 'email', value: 'test@example.com' } });
-  //   passwordInput.simulate('change', { target: { name: 'password', value: 'password123' } });
+    const signInButton = getByRole('button');
+    debug(); // print out the current state of the DOM
+    expect(signInButton).toBeInTheDocument();
+    fireEvent.click(signInButton);
 
-  //   // simulate form submit
-  //   form.simulate('submit', { preventDefault: noop });
-  //   expect(onSuccess).toHaveBeenCalledTimes(1);
-  // })
+    expect(mockOnSubmit).toHaveBeenCalled();
+  })
 });

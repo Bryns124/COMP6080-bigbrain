@@ -25,7 +25,7 @@
     border-radius: 5px;
     justify-content: space-around;
     width: 210px;
-    height: 290px;
+    height: 310px;
     background-color: #FEDBDB;
 }
 
@@ -62,20 +62,27 @@
   min-height: 120px;
 }
 
+.Button{
+  background-color: #FF9365;
+  border: 0px;
+  box-shadow: #FF7E47;
+  border-radius: 4px;
+}
+
 .modal {
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 1;
-  background-color: rgba(0, 0, 0, 0.5);
+  background: #F9E3CE 20%;
   width: 100%;
   height: 100%;
   display: none;
 }
 
 .modal-content {
-  background-color: white;
+  background-color: #FEDBDB;
   text-align: center;
   align-items: center;
   padding: 20px;
