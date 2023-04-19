@@ -2,10 +2,13 @@ import React from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import logo from '../assets/BigBrainLogo.png'
 import '../styles/JoinGame.css'
+import GamePage from './GamePage';
 function JoinGame () {
   const navigate = useNavigate()
   const [sessionId, setSessionId] = React.useState('')
   const [playerName, setPlayerName] = React.useState('')
+  const [gameStarted, setGameStarted] = React.useState(false);
+  const [showClass, setShowClass] = React.useState(true);
   React.useEffect(() => {
     const URL = window.location.href;
     const id = URL.split('sessionId=')
@@ -13,6 +16,9 @@ function JoinGame () {
     setSessionId(id[1])
   }, []);
 
+  const handleCSSClass = () => {
+    setShowClass(!showClass)
+  }
   const joingame = async () => {
     const response = await fetch(`http://localhost:5005/play/join/${sessionId}`, {
       method: 'POST',
@@ -23,10 +29,21 @@ function JoinGame () {
         name: playerName,
       })
     });
-    const data = await response.json();
-    console.log('playerid', data)
-    return data;
+    if (response.status === 200) {
+      console.log('ok')
+      setGameStarted(!gameStarted);
+    } else {
+      console.log('not ok');
+      setGameStarted(gameStarted);
+    }
+    // const data = await response.json();
+    // console.log('playerid', data)
+    // return data;
   }
+  const handleFuncs = () => {
+    joingame();
+    handleCSSClass();
+  };
   return (
     <>
       <header style={ { backgroundColor: '#FEAC88' } }>
@@ -50,8 +67,8 @@ function JoinGame () {
         <hr />
     </header>
     <div className='bodyStyle'>
-      <div style={ { display: 'flex', flexDirection: 'column' } }>
-        <div className='innerBody'>
+      <div style={ { display: showClass ? 'flex' : 'none', flexDirection: 'column' } }>
+        <div className={showClass ? 'innerBody' : 'innerBody hidden'}>
           <div style={ { maxWidth: '320px' } }>
             <div style={ { height: '100px', width: '200px', margin: '4.25rem auto 32px' } }>
               <img src={logo} alt="Big brain logo" style={ { width: '100%', height: '100%' } }/>
@@ -66,11 +83,15 @@ function JoinGame () {
                 <input type="text" value={playerName} onChange={val => setPlayerName(val.target.value)} />
               </div>
               <div className='fieldsContainer'>
-                <button className='button' onClick={joingame}>Join Game</button>
+                <button className='button' onClick={handleFuncs}>Join Game</button>
               </div>
             </div>
           </div>
+          {console.log('hey' + gameStarted)}
         </div>
+      </div>
+      <div>
+            <GamePage gameStarted={gameStarted}/>
       </div>
     </div>
     </>

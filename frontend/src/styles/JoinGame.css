@@ -13,6 +13,16 @@
   min-height: 100vh;
 }
 
+.loadingContainer{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background-color: #FF9365;
+  width: 100%;
+}
+
 .mainContainer{
   margin-right: 12px;
   display: flex;
