@@ -14,7 +14,8 @@ function Dashboard ({ token }) {
   const [modalStartVisible, setModalStartVisible] = React.useState(false);
   const [modalEndVisible, setModalEndVisible] = React.useState(false);
   const [sessionID, setSessionID] = React.useState(0);
-
+  const [currentQuestionIndex, setCurrentQuestionIndex] = React.useState(0);
+  const [questions, setQuestions] = React.useState([]);
   // const logout = async () => {
   //   const response = await fetch('http://localhost:5005/admin/auth/logout', {
   //     method: 'POST',
@@ -115,6 +116,25 @@ function Dashboard ({ token }) {
     const data = await response.json();
     return data;
   }
+
+  const getGameStatus = async () => {
+    const response = await fetch(`http://localhost:5005/admin/session/${sessionID}/status`, {
+      method: 'GET',
+      headers: {
+        'content-type': 'application/json',
+        Authorization: `Bearer ${token}`
+      }
+    });
+    const data = await response.json();
+    return data;
+  }
+
+  React.useEffect(() => {
+    getGameStatus().then((data) => {
+      console.log('the data for status', data)
+      setQuestions(data.results.questions)
+    })
+  }, []);
 
   const handleModalStartClick = (id) => {
     handleModalStartButton()
