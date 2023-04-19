@@ -3,7 +3,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import logo from '../assets/BigBrainLogo.png'
 import '../styles/JoinGame.css'
 import GamePage from './GamePage';
-function JoinGame () {
+function JoinGame ({ token }) {
   const navigate = useNavigate()
   const [sessionId, setSessionId] = React.useState('')
   const [playerName, setPlayerName] = React.useState('')
@@ -92,10 +92,11 @@ function JoinGame () {
             </div>
           </div>
           {console.log('hey' + gameStarted)}
+          {console.log(token)}
         </div>
       </div>
       <div>
-            <GamePage gameStarted={gameStarted}/>
+            <GamePage gameStarted={gameStarted} token={token}/>
       </div>
     </div>
     </>

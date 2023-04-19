@@ -1,9 +1,9 @@
 import React from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import '../styles/EditQuiz.css'
-// import Dashboard from './Dashboard';
 import correctLogo from '../assets/correct.png';
 import wrongLogo from '../assets/Wrong-PNG-Image.png';
+
 function EditQuiz ({ token }) {
   const quizID = useParams().quizID;
   const navigate = useNavigate();
@@ -38,8 +38,6 @@ function EditQuiz ({ token }) {
     url: questionURL,
     img: questionIMG
   }]
-  console.log('this is new question: ', newQuestion)
-  console.log('this is current question: ', currentQuizQuestions)
 
   const getQuizInfo = async () => {
     const response = await fetch(`http://localhost:5005/admin/quiz/${quizID}`, {
@@ -55,8 +53,6 @@ function EditQuiz ({ token }) {
 
   React.useEffect(() => {
     getQuizInfo().then((data) => {
-      console.log(data)
-      console.log(data.questions)
       setCurrentQuizQuestions(data.questions)
     })
   }, []);
@@ -180,6 +176,7 @@ function EditQuiz ({ token }) {
   const displayFunc = () => {
     setShowElement(!showElement);
   }
+
   return (
     <div className='BodyStyle'>
       <div className='InnerBody' style={ { display: !showElement ? 'flex' : 'none' } }>
@@ -204,7 +201,6 @@ function EditQuiz ({ token }) {
           {
             currentQuizQuestions.map((que, index) => (
               <div key={que.questionType} style={ { position: 'relative', borderStyle: 'groove', borderRadius: '3px' } }>
-                {console.log(que)}
                 <div style={ { width: '100%' } }>
                   <div style={ { display: 'flex', justifyContent: 'space-between', padding: '10px' } }>
                     <b onClick={() => handleQuestionClick(index)}>{que.question}</b>
@@ -218,7 +214,6 @@ function EditQuiz ({ token }) {
                         que.options.map((op, i) => (
                           <div key={op.text}>
                             <div className='QuestionBox'>
-                              {console.log(op)}
                               {op.includes(que.correct[i])
                                 ? <div style={ { display: 'flex', justifyContent: 'space-between', height: '20px' } }>
                                     {op}

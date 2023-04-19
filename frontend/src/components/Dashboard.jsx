@@ -5,6 +5,7 @@ import AddQuiz from './AddQuiz';
 import EditQuiz from './EditQuiz';
 import '../styles/Dashboard.css';
 import bigbrainLogo from '../assets/bigbrain_add_quiz_img.svg'
+
 function Dashboard ({ token }) {
   const navigate = useNavigate();
   const [quizBool, setQuizBool] = React.useState(false);
@@ -25,7 +26,7 @@ function Dashboard ({ token }) {
   //   const data = await response.json();
   // }
 
-  async function getQuizzes () {
+  const getQuizzes = async () => {
     const response = await fetch('http://localhost:5005/admin/quiz', {
       method: 'GET',
       headers: {
@@ -36,6 +37,7 @@ function Dashboard ({ token }) {
     const data = await response.json();
     setAllQuizzes(data);
   }
+
   React.useEffect(async () => {
     await getQuizzes();
   }, [quizBool]);
@@ -86,7 +88,6 @@ function Dashboard ({ token }) {
       }
     });
     const data = await response.json();
-    console.log(data.active);
     setSessionID(data.active);
     return data;
   }
@@ -100,7 +101,6 @@ function Dashboard ({ token }) {
       }
     });
     const data = await response.json();
-    console.log('startgame data:', data)
     return data;
   }
 
@@ -113,7 +113,6 @@ function Dashboard ({ token }) {
       }
     });
     const data = await response.json();
-    console.log('endgame data:', data)
     return data;
   }
 
@@ -130,31 +129,22 @@ function Dashboard ({ token }) {
 
   const [isCopied, setIsCopied] = React.useState(false);
 
-  async function copyToClipboard () {
-    console.log(sessionID);
+  const copyToClipboard = async () => {
     await navigator.clipboard.writeText(`http://localhost:3000/home/?sessionId=${sessionID}`);
     setIsCopied(true);
   }
 
-  async function displayResults () {
-    console.log('results')
+  const displayResults = async () => {
     navigate('/dashboard/results')
   }
-
-  // async function checkClipboard () {
-  //   const clipboardText = await navigator.clipboard.readText();
-  //   console.log('Clipboard content:', clipboardText);
-  // }
 
   const Popup = () => {
     return (
       <div className='modal' style={{ display: 'block' }}>
       <div className='modal-content'>
         <h2>Click to copy the game URL</h2>
-        {/* <p onClick={copyToClipboard}>{sessionID}</p> */}
         <p>Game session is {sessionID}</p>
         <button onClick={copyToClipboard}>{isCopied ? 'Copied!' : 'Click here!'}</button>
-        {/* <button onClick={checkClipboard}>Check Clipboard</button> */}
         <button onClick={() => setModalStartVisible(false)}>Close Modal</button>
       </div>
     </div>
@@ -166,10 +156,8 @@ function Dashboard ({ token }) {
       <div className='modal' style={{ display: 'block' }}>
       <div className='modal-content'>
         <h2>Game is finished!</h2>
-        {/* <p onClick={copyToClipboard}>{sessionID}</p> */}
         <p>Would you like to see the results?</p>
         <button onClick={displayResults}>Yes</button>
-        {/* <button onClick={checkClipboard}>Check Clipboard</button> */}
         <button onClick={() => setModalEndVisible(false)}>Close Modal</button>
       </div>
     </div>

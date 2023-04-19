@@ -9,6 +9,7 @@ import ResultPage from './components/Results';
 import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
 import AddQuiz from './components/AddQuiz';
 import EditQuiz from './components/EditQuiz';
+
 function Wrapper () {
   const navigate = useNavigate()
   const location = useLocation()
@@ -33,12 +34,14 @@ function Wrapper () {
         navigate('/dashboard/results');
       }
     } else if (['/home'].includes(location.pathname)) {
+      setToken(localStorage.getItem('token'));
       navigate('/home');
     } else {
+      setToken(localStorage.getItem('token'));
       navigate('/home');
-      localStorage.removeItem('token');
     }
   }, []);
+  
   return (
     <>
       <Routes>
@@ -50,7 +53,7 @@ function Wrapper () {
           <Route path='/signup' element= {<SignUp onSuccess={manageTokenSet} />}/>
           <Route path='/signin' element= {<SignIn onSuccess={manageTokenSet} />}/>
         </Route>
-        <Route path='/home' element= {<JoinGame/>}/>
+        <Route path='/home' element= {<JoinGame token={token}/>}/>
       </Routes>
     </>
   );

@@ -1,10 +1,11 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom';
 import '../styles/AddQuiz.css';
-// import bigBrainImg from '../assets/bigbrain_add_quiz_img.svg';
+
 function AddQuiz ({ token }) {
   const navigate = useNavigate();
   const [addQuiz, setAddQuiz] = React.useState('');
+
   const addNewQuiz = async () => {
     const response = await fetch('http://localhost:5005/admin/quiz/new', {
       method: 'POST',
@@ -19,7 +20,8 @@ function AddQuiz ({ token }) {
     const data = await response.json();
     console.log(data);
   }
-  function returnFunc () {
+
+  const returnFunc = () => {
     addNewQuiz();
     navigate('/dashboard');
   }

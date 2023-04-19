@@ -3,10 +3,12 @@ import React from 'react';
 function SignIn ({ onSuccess }) {
   const [email, setEmail] = React.useState('')
   const [password, setPassword] = React.useState('')
+
   const mainBodyContainer = {
     backgroundColor: '#F9E3CE',
     width: '100%'
   }
+
   const InnerBody = {
     display: 'flex',
     paddingTop: '2rem',
@@ -20,8 +22,8 @@ function SignIn ({ onSuccess }) {
     height: 'fit-content',
     minHeight: '100vh',
     backgroundColor: '#F9E3CE',
-
   }
+
   const bodyStyle = {
     backgroundColor: '#FEDBDB',
     borderRadius: 15,
@@ -34,6 +36,7 @@ function SignIn ({ onSuccess }) {
     alignItems: 'center',
     WebkitBoxAlign: 'center'
   }
+
   const mainBodyStyle = {
     display: 'flex',
     position: 'absolute',
@@ -55,9 +58,9 @@ function SignIn ({ onSuccess }) {
     WebkitBoxAlign: 'center',
     justifyContent: 'center',
     WebkitBoxPack: 'center',
-
   }
-  async function login (e) {
+
+  const login = async (e) => {
     e.preventDefault()
     const response = await fetch('http://localhost:5005/admin/auth/login', {
       method: 'POST',
@@ -73,7 +76,6 @@ function SignIn ({ onSuccess }) {
     if (data.error) {
       alert(data.error)
     } else {
-      console.log(data.token)
       onSuccess(data.token)
     }
   }

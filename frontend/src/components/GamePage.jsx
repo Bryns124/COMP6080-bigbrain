@@ -2,7 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../styles/JoinGame.css'
 function GamePage (props) {
-  const token = localStorage.getItem('token')
+  // const token = localStorage.getItem('token')
   const navigate = useNavigate()
   const [sessionId, setSessionId] = React.useState('');
   const [questions, setQuestions] = React.useState([]);
@@ -63,7 +63,7 @@ function GamePage (props) {
       method: 'POST',
       headers: {
         'content-type': 'application/json',
-        Authorization: `Bearer ${token}`
+        Authorization: `Bearer ${props.token}`
       }
     });
     const data = await response.json();
@@ -75,7 +75,7 @@ function GamePage (props) {
       method: 'GET',
       headers: {
         'content-type': 'application/json',
-        Authorization: `Bearer ${token}`
+        Authorization: `Bearer ${props.token}`
       }
     });
     const data = await response.json();
@@ -121,12 +121,14 @@ function GamePage (props) {
     <>
       <div className='bodyStyle'>
         {console.log('lol' + props.gameStarted)}
+        {console.log(props.token)}
         <div className='innerBody'>
           {
             props.gameStarted
               ? <div>
                   <div>
                   <div>
+                  {console.log(questions[currentQuestionIndex])}
                     {questions[currentQuestionIndex].img.preview !== '' &&
                       <img src={questions[currentQuestionIndex].img.preview} alt="question image" />
                     }

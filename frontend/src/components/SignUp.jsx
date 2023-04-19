@@ -22,7 +22,6 @@ function SignUp ({ onSuccess }) {
     height: 'fit-content',
     minHeight: '100vh',
     backgroundColor: '#F9E3CE',
-
   }
 
   const bodyStyle = {
@@ -37,6 +36,7 @@ function SignUp ({ onSuccess }) {
     alignItems: 'center',
     WebkitBoxAlign: 'center'
   }
+
   const mainBodyStyle = {
     display: 'flex',
     position: 'absolute',
@@ -58,9 +58,9 @@ function SignUp ({ onSuccess }) {
     WebkitBoxAlign: 'center',
     justifyContent: 'center',
     WebkitBoxPack: 'center',
-
   }
-  async function register (e) {
+  
+  const register = async (e) => {
     e.preventDefault()
     const response = await fetch('http://localhost:5005/admin/auth/register', {
       method: 'POST',
@@ -77,7 +77,6 @@ function SignUp ({ onSuccess }) {
     if (data.error) {
       alert(data.error)
     } else {
-      console.log(data.token)
       onSuccess(data.token)
     }
   }

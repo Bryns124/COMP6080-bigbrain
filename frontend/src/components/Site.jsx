@@ -4,6 +4,7 @@ import { useLocation, useNavigate, Outlet, Link } from 'react-router-dom';
 
 import logo from '../assets/BigBrainLogo.png'
 function Site ({ setToken }) {
+
   const navigate = useNavigate();
   const location = useLocation();
   function logout () {
@@ -21,18 +22,17 @@ function Site ({ setToken }) {
                     <div style={ { padding: '2px' } }>
                       <img src={logo} style={ { width: 100, height: 40 } } alt="BigBrain Logo" />
                     </div>
-
                     <div style={ { display: 'flex' } }>
                       {!['/signup', '/signin'].includes(location.pathname)
                         ? <>
-                              <Link to="/signin" onClick={logout}>Logout</Link>
-                              </>
+                            <Link to="/signin" onClick={logout}>Logout</Link>
+                          </>
                         : <>
-                              <Link to="/signup" onClick={() => navigate('signup')}>Sign Up</Link>
-                              &nbsp;|&nbsp;
-                              <Link to="/signin" onClick={() => navigate('signin')}>Sign In</Link>
-                              </>
-                          }
+                            <Link to="/signup" onClick={() => navigate('signup')}>Sign Up</Link>
+                            &nbsp;|&nbsp;
+                            <Link to="/signin" onClick={() => navigate('signin')}>Sign In</Link>
+                          </>
+                      }
                     </div>
                 </div>
             </nav>
