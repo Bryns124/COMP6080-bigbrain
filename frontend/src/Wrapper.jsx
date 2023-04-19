@@ -33,10 +33,11 @@ function Wrapper () {
         navigate('/dashboard/results');
       }
     } else if (['/home'].includes(location.pathname)) {
+      setToken(localStorage.getItem('token'));
       navigate('/home');
     } else {
+      setToken(localStorage.getItem('token'));
       navigate('/home');
-      localStorage.removeItem('token');
     }
   }, []);
   return (
@@ -50,7 +51,7 @@ function Wrapper () {
           <Route path='/signup' element= {<SignUp onSuccess={manageTokenSet} />}/>
           <Route path='/signin' element= {<SignIn onSuccess={manageTokenSet} />}/>
         </Route>
-        <Route path='/home' element= {<JoinGame/>}/>
+        <Route path='/home' element= {<JoinGame token={token}/>}/>
       </Routes>
     </>
   );

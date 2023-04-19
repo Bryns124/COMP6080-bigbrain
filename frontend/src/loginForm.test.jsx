@@ -1,8 +1,7 @@
 import SignIn from './components/SignIn';
 import { shallow, configure } from 'enzyme';
 import Adapter from '@wojtekmaj/enzyme-adapter-react-17';
-import { render, fireEvent, getByRole, debug } from '@testing-library/react';
-
+// import { render, fireEvent, getByRole, debug } from '@testing-library/react';
 
 const noop = () => {}
 configure({ adapter: new Adapter() });
@@ -10,8 +9,7 @@ describe('LoginForm', () => {
   it('should render a login form', () => {
     const wrapper = shallow(<SignIn onSubmit={noop} />);
     const form = wrapper.find('form');
-    expect(form).toHaveLength(1);
-    
+    expect(form).toHaveLength(1);  
   });
   it('should have inputs for email and password', () => {
     const wrapper = shallow(<SignIn onSubmit={noop} />);
