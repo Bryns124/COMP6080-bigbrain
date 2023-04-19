@@ -9,7 +9,7 @@ function GamePage (props) {
   const [secondsRemaining, setSecondsRemaining] = React.useState(10);
   const [isRunning, setIsRunning] = React.useState(false);
   const [timerFinished, setTimerFinished] = React.useState(false);
-
+  const playerData = props.playerData;
   React.useMemo(() => {
     const URL = window.location.href;
     const id = URL.split('sessionId=')
