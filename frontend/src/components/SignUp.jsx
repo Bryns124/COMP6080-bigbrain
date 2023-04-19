@@ -70,15 +70,15 @@ function SignUp ({ onSuccess }) {
             <form style={ { margin: '1.5rem 0px' } } data-testid="register-form">
               <label>Email</label>
               <br />
-              <input value={email} onChange={(e) => setEmail(e.target.value)} style={ { width: '100%', minHeight: '2.75rem' } }/><br />
+              <input type="email" name="email" value={email} onChange={(e) => setEmail(e.target.value)} style={ { width: '100%', minHeight: '2.75rem' } }/><br />
               <br />
               <label>Password</label>
               <br />
-              <input value={password} onChange={(e) => setPassword(e.target.value)} style={ { width: '100%', minHeight: '2.75rem' } }/><br />
+              <input type="password" name="password" value={password} onChange={(e) => setPassword(e.target.value)} style={ { width: '100%', minHeight: '2.75rem' } }/><br />
               <br />
               <label>Name</label>
               <br />
-              <input value={name} onChange={(e) => setName(e.target.value)} style={ { width: '100%', minHeight: '2.75rem' } }/><br />
+              <input type="text" name="name" value={name} onChange={(e) => setName(e.target.value)} style={ { width: '100%', minHeight: '2.75rem' } }/><br />
               <br />
               <button onClick={register} style={ { width: '100%', minHeight: '2.75rem' } }>Register</button>
             </form>

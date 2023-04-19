@@ -194,7 +194,7 @@ function Dashboard ({ token }) {
         <h2>Game is finished!</h2>
         {/* <p onClick={copyToClipboard}>{sessionID}</p> */}
         <p>Would you like to see the results?</p>
-        <button onClick={displayResults}>Show results</button>
+        <button onClick={displayResults}>Yes</button>
         {/* <button onClick={checkClipboard}>Check Clipboard</button> */}
         <button onClick={() => setModalEndVisible(false)}>Close Modal</button>
       </div>
