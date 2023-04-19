@@ -4,6 +4,7 @@ function SignUp ({ onSuccess }) {
   const [email, setEmail] = React.useState('')
   const [password, setPassword] = React.useState('')
   const [name, setName] = React.useState('')
+
   const mainBodyContainer = {
     backgroundColor: '#F9E3CE',
     width: '100%'

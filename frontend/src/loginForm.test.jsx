@@ -3,6 +3,13 @@ import { shallow, configure } from 'enzyme';
 import Adapter from '@wojtekmaj/enzyme-adapter-react-17';
 import { render, fireEvent, getByRole, debug } from '@testing-library/react';
 
+function fetchPosts() {
+  const request = axios.get(`${WORDPRESS_URL}`);
+  return {
+      type: FETCH_POSTS,
+      payload: request
+  }
+}
 
 const noop = () => {}
 configure({ adapter: new Adapter() });
@@ -22,15 +29,32 @@ describe('LoginForm', () => {
     expect(password.prop('name')).toBe('password');
     expect(email.prop('name')).toBe('email');
   })
-  // it('should call the onSubmit function when the submit button is clicked', () => {
-  //   const mockOnSubmit = jest.fn();
-  //   const { getByRole } = render(<SignIn onSubmit={mockOnSubmit} />);
+  it('should call the onSubmit function when the submit button is clicked', () => {
+    // const dummyData = {
+    //   email: "dummy@email.com",
+    //   password: "password"
+    // }
+    // const inputs = wrapper.find('input');
+    const mockToken = {
+      token: ""
+    };
 
-  //   const signInButton = getByRole('button');
-  //   debug(); // print out the current state of the DOM
-  //   expect(signInButton).toBeInTheDocument();
-  //   fireEvent.click(signInButton);
+    global.fetch = jest.fn(() => Promise.resolve({
+        json: () => Promise.resolve(mockToken)
+    }));
 
-  //   expect(mockOnSubmit).toHaveBeenCalled();
-  // })
+    beforeEach(() => {
+      fetch.mockClear();
+    });
+    fetch.mockResponseOnce(mockToken);
+    expect(fetch).toHaveBeenCalledTimes(1);
+    // const mockOnSubmit = jest.fn();
+    // const { getByRole } = render(<SignIn onSuccess={mockOnSubmit} />);
+
+    // const signInButton = getByRole('button');
+    // expect(signInButton).toBeInTheDocument();
+    // // fireEvent.click(signInButton);
+
+    // expect(mockOnSubmit).toHaveBeenCalled();
+  })
 });

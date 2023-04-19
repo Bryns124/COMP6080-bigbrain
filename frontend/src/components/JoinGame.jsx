@@ -39,6 +39,11 @@ function JoinGame () {
     // console.log('playerid', data)
     // return data;
   }
+
+  // id
+  // game ur playing
+  // store id in localstorage
+
   const handleFuncs = () => {
     joingame();
     handleCSSClass();
