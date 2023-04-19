@@ -9,7 +9,9 @@ function GamePage (props) {
   const [secondsRemaining, setSecondsRemaining] = React.useState(10);
   const [isRunning, setIsRunning] = React.useState(false);
   const [timerFinished, setTimerFinished] = React.useState(false);
+  const currentQuestionIndex = 0
   const playerData = props.playerData;
+  const questions = {}
   React.useMemo(() => {
     const URL = window.location.href;
     const id = URL.split('sessionId=')
@@ -54,8 +56,6 @@ function GamePage (props) {
 
     return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
   };
-
-
 
   // const getGameResults = async () => {
   //   const response = await fetch(`http://localhost:5005/admin/session/${sessionId}/results`, {
