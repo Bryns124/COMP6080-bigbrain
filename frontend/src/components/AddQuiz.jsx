@@ -5,7 +5,6 @@ import '../styles/AddQuiz.css';
 function AddQuiz ({ token }) {
   const navigate = useNavigate();
   const [addQuiz, setAddQuiz] = React.useState('');
-  // const [imgUrl, setImgUrl] = React.useState({ file: null, preview: '' });
   const addNewQuiz = async () => {
     const response = await fetch('http://localhost:5005/admin/quiz/new', {
       method: 'POST',
@@ -19,23 +18,12 @@ function AddQuiz ({ token }) {
     });
     const data = await response.json();
     console.log(data);
-    // await Dashboard.getQuizzes();
   }
   function returnFunc () {
     addNewQuiz();
     navigate('/dashboard');
   }
-  // const handleImgChange = (event) => {
-  //   const selectedFile = event.target.files[0];
-  //   const reader = new FileReader();
-  //   reader.onloadend = () => {
-  //     setImgUrl({
-  //       file: selectedFile,
-  //       preview: reader.result
-  //     });
-  //   };
-  //   reader.readAsDataURL(selectedFile)
-  // }
+
   return (
     <div className='BodyStyle'>
         {

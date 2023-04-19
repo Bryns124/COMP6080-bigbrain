@@ -14,19 +14,6 @@ function Dashboard ({ token }) {
   const [modalEndVisible, setModalEndVisible] = React.useState(false);
   const [sessionID, setSessionID] = React.useState(0);
 
-  // const [deleteQuizBool, setDeleteQuizBool] = React.useState(false);
-  // const ques = {
-  //   'question_type': question_type,
-  //   'question_name': question_name,
-  //   'time_limit': time_limit,
-  //   'points': points,
-  //   'options': options,
-  //   'question_image': question_image ,
-  //   'correct_options': (question_type === 'multiple_Choice' ? multiple_correct : single_ccorrect)
-  // }
-  // const navigate = useNavigate();
-  // const location = useLocation();
-
   // const logout = async () => {
   //   const response = await fetch('http://localhost:5005/admin/auth/logout', {
   //     method: 'POST',
@@ -129,19 +116,6 @@ function Dashboard ({ token }) {
     console.log('endgame data:', data)
     return data;
   }
-
-  // const advanceGame = async (id) => {
-  //   const response = await fetch(`http://localhost:5005/admin/quiz/${id}/advance`, {
-  //     method: 'POST',
-  //     headers: {
-  //       'content-type': 'application/json',
-  //       Authorization: `Bearer ${token}`
-  //     }
-  //   });
-  //   const data = await response.json();
-  //   console.log('advancegame data:', data)
-  //   // return data;
-  // }
 
   const handleModalStartClick = (id) => {
     handleModalStartButton()

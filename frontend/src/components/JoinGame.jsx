@@ -12,7 +12,6 @@ function JoinGame () {
   React.useEffect(() => {
     const URL = window.location.href;
     const id = URL.split('sessionId=')
-    console.log(id);
     setSessionId(id[1])
   }, []);
 
