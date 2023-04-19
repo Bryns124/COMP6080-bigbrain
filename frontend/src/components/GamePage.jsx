@@ -1,14 +1,11 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
 import '../styles/JoinGame.css'
 function GamePage (props) {
   // const token = localStorage.getItem('token')
-  const navigate = useNavigate()
   const [sessionId, setSessionId] = React.useState('');
-  const [questions, setQuestions] = React.useState([]);
+
   // const [answersAvailable, setAnswersAvailable] = React.useState(false);
   // const [answers, setAnswers] = React.useState([]);
-  const [currentQuestionIndex, setCurrentQuestionIndex] = React.useState(0);
   const [secondsRemaining, setSecondsRemaining] = React.useState(10);
   const [isRunning, setIsRunning] = React.useState(false);
   const [timerFinished, setTimerFinished] = React.useState(false);
@@ -58,29 +55,7 @@ function GamePage (props) {
     return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
   };
 
-  const advanceGame = async (id) => {
-    const response = await fetch(`http://localhost:5005/admin/quiz/${id}/advance`, {
-      method: 'POST',
-      headers: {
-        'content-type': 'application/json',
-        Authorization: `Bearer ${props.token}`
-      }
-    });
-    const data = await response.json();
-    console.log('advancegame data:', data)
-  }
 
-  const getGameStatus = async () => {
-    const response = await fetch(`http://localhost:5005/admin/session/${sessionId}/status`, {
-      method: 'GET',
-      headers: {
-        'content-type': 'application/json',
-        Authorization: `Bearer ${props.token}`
-      }
-    });
-    const data = await response.json();
-    return data;
-  }
 
   // const getGameResults = async () => {
   //   const response = await fetch(`http://localhost:5005/admin/session/${sessionId}/results`, {
@@ -94,28 +69,13 @@ function GamePage (props) {
   //   return data;
   // }
 
-  React.useEffect(() => {
-    getGameStatus().then((data) => {
-      console.log('the data for status', data)
-      setQuestions(data.results.questions)
-    })
-  }, []);
+
 
   // React.useEffect(() => {
   //   getGameResults().then((data) => {
   //     console.log('the data for results', data)
   //   })
   // }, []);
-
-  const handleAdvanceClick = () => {
-    advanceGame()
-    const nextQuestionIndex = currentQuestionIndex + 1;
-    if (nextQuestionIndex >= questions.length) {
-      navigate('/dashboard/results');
-    } else {
-      setCurrentQuestionIndex(nextQuestionIndex);
-    }
-  };
 
   return (
     <>
@@ -172,7 +132,6 @@ function GamePage (props) {
                     </div>
                   )}
                   </div>
-                  <button onClick={handleAdvanceClick}>Advance</button>
               </div>
               : <div className='loadingContainer'>
                 <h1>Loading...</h1>
