@@ -1,6 +1,5 @@
 import React from 'react';
 import '../styles/JoinGame.css'
-
 function GamePage (props) {
   // const token = localStorage.getItem('token')
   // const [answersAvailable, setAnswersAvailable] = React.useState(false);
