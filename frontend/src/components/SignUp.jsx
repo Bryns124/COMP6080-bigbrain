@@ -59,7 +59,7 @@ function SignUp ({ onSuccess }) {
     justifyContent: 'center',
     WebkitBoxPack: 'center',
   }
-  
+
   const register = async (e) => {
     e.preventDefault()
     const response = await fetch('http://localhost:5005/admin/auth/register', {
