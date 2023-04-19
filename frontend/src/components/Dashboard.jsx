@@ -129,12 +129,12 @@ function Dashboard ({ token }) {
     return data;
   }
 
-  React.useEffect(() => {
-    getGameStatus().then((data) => {
-      console.log('the data for status', data)
-      setQuestions(data.results.questions)
-    })
-  }, []);
+  // React.useEffect(() => {
+  //   getGameStatus().then((data) => {
+  //     console.log('the data for status', data)
+  //     setQuestions(data.results.questions)
+  //   })
+  // }, []);
 
   const handleModalStartClick = (id) => {
     handleModalStartButton()
@@ -164,8 +164,9 @@ function Dashboard ({ token }) {
       <div className='modal-content'>
         <h2>Click to copy the game URL</h2>
         <p>Game session is {sessionID}</p>
-        <button onClick={copyToClipboard}>{isCopied ? 'Copied!' : 'Click here!'}</button>
-        <button onClick={() => setModalStartVisible(false)}>Close Modal</button>
+        <button className='Button' onClick={copyToClipboard}>{isCopied ? 'Copied!' : 'Click here!'}</button>
+        <button className='Button' onClick={() => setModalStartVisible(false)}>Close Modal</button>
+        <button className='Button' onClick={getGameStatus}>Game Status</button>
       </div>
     </div>
     );

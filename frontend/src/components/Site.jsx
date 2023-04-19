@@ -6,11 +6,15 @@ import logo from '../assets/BigBrainLogo.png'
 function Site ({ setToken }) {
   const navigate = useNavigate();
   const location = useLocation();
-  function logout () {
-    // logoutReq();
-    setToken(null);
-    localStorage.removeItem('token');
-    navigate('/signin');
+  const logout = async () => {
+    await fetch('http://localhost:5005/admin/auth/logout', {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json',
+        Authorization: `Bearer ${setToken}`
+      }
+    });
+    // const data = await response.json();
   }
 
   return (

@@ -9,6 +9,7 @@ function JoinGame ({ token }) {
   const [playerName, setPlayerName] = React.useState('')
   const [gameStarted, setGameStarted] = React.useState(false);
   const [showClass, setShowClass] = React.useState(true);
+  const [playerData, setPlayerData] = React.useState('');
   React.useEffect(() => {
     const URL = window.location.href;
     const id = URL.split('sessionId=')
@@ -36,8 +37,8 @@ function JoinGame ({ token }) {
       setGameStarted(gameStarted);
     }
     const data = await response.json();
-    console.log('playerid', data)
-    return data;
+    // console.log('playerid', data)
+    setPlayerData(data);
   }
 
   // id
@@ -96,7 +97,7 @@ function JoinGame ({ token }) {
         </div>
       </div>
       <div>
-            <GamePage gameStarted={gameStarted} token={token}/>
+            <GamePage gameStarted={gameStarted} token={token} playerData={playerData}/>
       </div>
     </div>
     </>
