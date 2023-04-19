@@ -21,11 +21,6 @@ describe('LoginForm', () => {
     expect(email.prop('name')).toBe('email');
   })
   it('should call the onSubmit function when the submit button is clicked', () => {
-    // const dummyData = {
-    //   email: "dummy@email.com",
-    //   password: "password"
-    // }
-    // const inputs = wrapper.find('input');
     const mockToken = {
       token: ""
     };
@@ -39,13 +34,5 @@ describe('LoginForm', () => {
     });
     fetch.mockResponseOnce(mockToken);
     expect(fetch).toHaveBeenCalledTimes(1);
-    // const mockOnSubmit = jest.fn();
-    // const { getByRole } = render(<SignIn onSuccess={mockOnSubmit} />);
-
-    // const signInButton = getByRole('button');
-    // expect(signInButton).toBeInTheDocument();
-    // // fireEvent.click(signInButton);
-
-    // expect(mockOnSubmit).toHaveBeenCalled();
   })
 });

@@ -46,7 +46,7 @@ function JoinGame ({ token }) {
   // store id in localstorage
 
   const handleFuncs = () => {
-    joingame();
+    joinGame();
     handleCSSClass();
   };
   return (
