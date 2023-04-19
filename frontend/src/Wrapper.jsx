@@ -41,7 +41,7 @@ function Wrapper () {
       navigate('/home');
     }
   }, []);
-  
+
   return (
     <>
       <Routes>
