@@ -5,6 +5,7 @@ import Dashboard from './/components/Dashboard'
 import Site from './/components/Site'
 import JoinGame from './components/JoinGame';
 import ResultPage from './components/Results';
+
 import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
 import AddQuiz from './components/AddQuiz';
 import EditQuiz from './components/EditQuiz';
