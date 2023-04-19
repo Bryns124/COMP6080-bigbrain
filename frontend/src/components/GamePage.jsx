@@ -1,9 +1,9 @@
 import React from 'react';
-// import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import '../styles/JoinGame.css'
 function GamePage (props) {
   const token = localStorage.getItem('token')
-  // const navigate = useNavigate()
+  const navigate = useNavigate()
   const [sessionId, setSessionId] = React.useState('');
   const [questions, setQuestions] = React.useState([]);
   // const [answersAvailable, setAnswersAvailable] = React.useState(false);
@@ -109,7 +109,12 @@ function GamePage (props) {
 
   const handleAdvanceClick = () => {
     advanceGame()
-    setCurrentQuestionIndex(currentQuestionIndex + 1);
+    const nextQuestionIndex = currentQuestionIndex + 1;
+    if (nextQuestionIndex >= questions.length) {
+      navigate('/dashboard/results');
+    } else {
+      setCurrentQuestionIndex(nextQuestionIndex);
+    }
   };
 
   return (
@@ -121,7 +126,11 @@ function GamePage (props) {
             props.gameStarted
               ? <div>
                   <div>
-                    <img src={questions[currentQuestionIndex].img.preview} alt="question image" />
+                  <div>
+                    {questions[currentQuestionIndex].img.preview !== '' &&
+                      <img src={questions[currentQuestionIndex].img.preview} alt="question image" />
+                    }
+                  </div>
                   </div>
                   <div>
                     <h1>{questions[currentQuestionIndex].questionType}</h1>
