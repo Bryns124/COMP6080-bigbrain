@@ -3,22 +3,14 @@ import '../styles/JoinGame.css'
 // import 
 function GamePage (props) {
   // const token = localStorage.getItem('token')
-  const [sessionId, setSessionId] = React.useState('');
-  const [playerId, setPlayerId] = React.useState('');
-
   // const [answersAvailable, setAnswersAvailable] = React.useState(false);
   // const [answers, setAnswers] = React.useState([]);
   const [secondsRemaining, setSecondsRemaining] = React.useState(10);
   const [isRunning, setIsRunning] = React.useState(false);
   const [timerFinished, setTimerFinished] = React.useState(false);
-  const currentQuestionIndex = 0
+  // const currentQuestionIndex = 0
   const playerData = props.playerData;
-  const questions = {}
-  React.useMemo(() => {
-    const URL = window.location.href;
-    const id = URL.split('sessionId=')
-    setSessionId(id[1])
-  }, []);
+  // const questions = {}
 
   React.useEffect(() => {
     let intervalId;
@@ -59,70 +51,69 @@ function GamePage (props) {
     return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
   };
 
-  const getPlayerStatus = async () => {
-    const response = await fetch(`http://localhost:5005/play/${playerId}/status`, {
-      method: 'GET',
-      headers: {
-        'content-type': 'application/json',
-        Authorization: `Bearer ${token}`
-      }
-      });
-      const data = await response.json();
-  }
+  // const getPlayerStatus = async () => {
+  //   const response = await fetch(`http://localhost:5005/play/${playerId}/status`, {
+  //     method: 'GET',
+  //     headers: {
+  //       'content-type': 'application/json',
+  //       Authorization: `Bearer ${token}`
+  //     }
+  //     });
+  //     const data = await response.json();
+  // }
 
-  const getPlayerQuestion = async () => {
-    const response = await fetch(`http://localhost:5005/play/${playerId}/question`, {
-      method: 'GET',
-      headers: {
-        'content-type': 'application/json',
-        Authorization: `Bearer ${token}`
-      }
-      });
-      const data = await response.json();
-  }
+  // const getPlayerQuestion = async () => {
+  //   const response = await fetch(`http://localhost:5005/play/${playerId}/question`, {
+  //     method: 'GET',
+  //     headers: {
+  //       'content-type': 'application/json',
+  //       Authorization: `Bearer ${token}`
+  //     }
+  //     });
+  //     const data = await response.json();
+  // }
 
-  const getPlayerAnswer = async () => {
-    const response = await fetch(`http://localhost:5005/play/${playerId}/answer`, {
-      method: 'GET',
-      headers: {
-        'content-type': 'application/json',
-        Authorization: `Bearer ${token}`
-      }
-      });
-      const data = await response.json();
-  }
+  // const getPlayerAnswer = async () => {
+  //   const response = await fetch(`http://localhost:5005/play/${playerId}/answer`, {
+  //     method: 'GET',
+  //     headers: {
+  //       'content-type': 'application/json',
+  //       Authorization: `Bearer ${token}`
+  //     }
+  //     });
+  //     const data = await response.json();
+  // }
 
-  const getPlayerAnswerUpdate = async () => {
-    const response = await fetch(`http://localhost:5005/play/${playerId}/answer`, {
-      method: 'PUT',
-      headers: {
-        'content-type': 'application/json',
-        Authorization: `Bearer ${token}`
-      },
-      body: {
-        answerIds: answers
-      }
-      });
-      const data = await response.json();
-  }
+  // const getPlayerAnswerUpdate = async () => {
+  //   const response = await fetch(`http://localhost:5005/play/${playerId}/answer`, {
+  //     method: 'PUT',
+  //     headers: {
+  //       'content-type': 'application/json',
+  //       Authorization: `Bearer ${token}`
+  //     },
+  //     body: {
+  //       answerIds: answers
+  //     }
+  //     });
+  //     const data = await response.json();
+  // }
 
-  const getPlayerResults = async () => {
-    const response = await fetch(`http://localhost:5005/play/${playerId}/results`, {
-      method: 'GET',
-      headers: {
-        'content-type': 'application/json',
-        Authorization: `Bearer ${token}`
-      }
-      });
-      const data = await response.json();
-  }
+  // const getPlayerResults = async () => {
+  //   const response = await fetch(`http://localhost:5005/play/${playerId}/results`, {
+  //     method: 'GET',
+  //     headers: {
+  //       'content-type': 'application/json',
+  //       Authorization: `Bearer ${token}`
+  //     }
+  //     });
+  //     const data = await response.json();
+  // }
 
   // const getGameResults = async () => {
   //   const response = await fetch(`http://localhost:5005/admin/session/${sessionId}/results`, {
   //     method: 'GET',
   //     headers: {
   //       'content-type': 'application/json',
-  //       Authorization: `Bearer ${token}`
   //     }
   //   });
   //   const data = await response.json();
@@ -146,27 +137,27 @@ function GamePage (props) {
               ? <div>
                   <div>
                   <div>
-                  {console.log(questions[currentQuestionIndex])}
+                  {/* {console.log(questions[currentQuestionIndex])}
                     {questions[currentQuestionIndex].img.preview !== '' &&
                       <img src={questions[currentQuestionIndex].img.preview} alt="question image" />
-                    }
+                    } */}
                   </div>
                   </div>
                   <div>
-                    <h1>{questions[currentQuestionIndex].questionType}</h1>
+                    {/* <h1>{questions[currentQuestionIndex].questionType}</h1> */}
                   </div>
                   <div>
-                    <h2>{questions[currentQuestionIndex].question}</h2>
+                    {/* <h2>{questions[currentQuestionIndex].question}</h2> */}
                   </div>
                   <div>
-                    {questions[currentQuestionIndex].options.map((option) => (
+                    {/* {questions[currentQuestionIndex].options.map((option) => (
                       <label key={option.id}>
                         <div>
                           <input type="checkbox" name="option" value={option.id} />
                           <span>{option}</span>
                         </div>
                       </label>
-                    ))}
+                    ))} */}
                   </div>
                   <div>
                     <h1>{formatTime(secondsRemaining)}</h1>
@@ -182,17 +173,18 @@ function GamePage (props) {
                   {timerFinished && (
                     <div>
                       <h2>Time&apos;s up! The answer/s are:</h2>
-                      <div>
+                      {/* <div>
                         {questions[currentQuestionIndex].correct.map((answer, index) => (
                           <span key={index}>{answer}</span>
                         ))}
-                      </div>
+                      </div> */}
                     </div>
                   )}
                   </div>
               </div>
               : <div className='loadingContainer'>
                 <h1>Loading...</h1>
+                {console.log(playerData)}
               </div>
           }
         </div>

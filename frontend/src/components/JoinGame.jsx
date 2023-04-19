@@ -37,8 +37,8 @@ function JoinGame ({ token }) {
       setGameStarted(gameStarted);
     }
     const data = await response.json();
-    // console.log('playerid', data)
-    setPlayerData(data);
+    console.log('playerid', data.playerId)
+    setPlayerData(data.playerId);
   }
 
   // id
