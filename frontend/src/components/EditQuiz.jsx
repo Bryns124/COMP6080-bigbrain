@@ -6,7 +6,6 @@ import correctLogo from '../assets/correct.png';
 import wrongLogo from '../assets/Wrong-PNG-Image.png';
 function EditQuiz ({ token }) {
   const quizID = useParams().quizID;
-  // console.log(quizID)
   const navigate = useNavigate();
   const [editQuizName, setQuizName] = React.useState('');
   const [imgUrl, setImgUrl] = React.useState({ file: null, preview: '' });
@@ -39,6 +38,8 @@ function EditQuiz ({ token }) {
     url: questionURL,
     img: questionIMG
   }]
+  console.log('this is new question: ', newQuestion)
+  console.log('this is current question: ', currentQuizQuestions)
 
   const getQuizInfo = async () => {
     const response = await fetch(`http://localhost:5005/admin/quiz/${quizID}`, {
